@@ -1,0 +1,371 @@
+openapi: 3.0.3
+info:
+  title: Swagger Reserva Restaurante - Avaliações
+  description: |-
+    Api para cadastrar avaliações dos Restaurantes reservados - FIAP Fase 3 Tech Challenge
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://localhost:8080
+    description: Local server
+
+tags:
+  - name: Avaliacao
+    description: Todo sobre avaliações dos restaurantes
+
+paths:
+  /avaliacoes:
+    post:
+      tags:
+        - Avaliacao
+      summary: Adiciona uma nova avaliação
+      description: Adiciona uma nova avaliação ao restaurante pelo seu ID da reserva e usuario
+      operationId: cadastrarAvaliacao
+      parameters:
+        - name: reservaId
+          in: query
+          description: ID da reserva
+          required: true
+          schema:
+            type: string
+        - name: usuarioId
+          in: query
+          description: ID do usuário
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Cria uma nova avaliação para o restaurante
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriaAvaliacao'
+        required: true
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Avaliacao'
+        '400':
+          description: Entrada inválida
+        '422':
+          description: Exceção de validação
+    get:
+      tags:
+        - Avaliacao
+      summary: Encontra todas as avaliações
+      description: Retorna todas as avaliações
+      operationId: buscarAvaliacoes
+      parameters:
+        - name: pagina
+          in: query
+          description: Número da página
+          required: false
+          schema:
+            type: integer
+            default: 0
+            example: 1
+        - name: porPagina
+          in: query
+          description: Número de itens por página
+          required: false
+          schema:
+            type: integer
+            default: 10
+            example: 10
+        - name: ativo
+          in: query
+          description: >
+            Status da avaliação:
+              * `true` - Todas avaliações ativas
+              * `false` - Todas avaliações que foram deletas
+          required: false
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginadaAvaliacao'
+
+  /avaliacoes/{id}:
+    get:
+      tags:
+        - Avaliacao
+      summary: Encontra avaliação por ID
+      description: Retorna uma única avaliação
+      operationId: buscarAvaliacaoPorId
+      parameters:
+        - name: id
+          in: path
+          description: ID da avaliação
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Avaliacao'
+        '400':
+          description: ID inválido fornecido
+        '404':
+          description: Avaliação não encontrado
+    patch:
+      tags:
+        - Avaliacao
+      summary: Atualiza uma avaliação existente
+      description: Atualiza uma avaliação pelo seu Id
+      operationId: atualizarAvaliacao
+      parameters:
+        - name: id
+          in: path
+          description: ID da avaliação
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Atualiza uma avaliação existente de um restaurante
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizaAvaliacao'
+        required: true
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Avaliacao'
+        '400':
+          description: ID inválido fornecido
+        '404':
+          description: Avaliações não encontradas
+        '422':
+          description: Exceção de validação
+    delete:
+      tags:
+        - Avaliacao
+      summary: Deleta uma avaliação
+      description: Deleta uma avaliação por exclusão logica
+      operationId: deletarAvaliacao
+      parameters:
+        - name: id
+          in: path
+          description: ID da avaliação
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Avaliação deletada
+        '400':
+          description: ID inválido fornecido
+
+  /avaliacoes/restaurantes/{id}:
+    get:
+      tags:
+        - Avaliacao
+      summary: Encontra avaliações de um restaurante por seu ID
+      description: Retorna todas avaliações de um restaurante
+      operationId: buscarAvaliacaoPorIdRestaurante
+      parameters:
+        - name: id
+          in: path
+          description: ID do restaurante
+          required: true
+          schema:
+            type: string
+        - name: pagina
+          in: query
+          description: Número da página
+          required: false
+          schema:
+            type: integer
+            default: 0
+            example: 1
+        - name: porPagina
+          in: query
+          description: Número de itens por página
+          required: false
+          schema:
+            type: integer
+            default: 10
+            example: 10
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginadaAvaliacao'
+        '400':
+          description: ID inválido fornecido
+        '404':
+          description: Avaliações não encontradas
+
+  /avaliacoes/restaurantes/nota/{id}:
+    get:
+      tags:
+        - Avaliacao
+      summary: Encontra nota de um restaurante por seu ID
+      description: Retorna nota de uma restaurante
+      operationId: buscarNotaPorIdRestaurante
+      parameters:
+        - name: id
+          in: path
+          description: ID do restaurante
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotaRestaurante'
+        '400':
+          description: ID inválido fornecido
+
+components:
+  schemas:
+    Avaliacao:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID da avaliação
+          example: 123e4567-e89b-12d3-a456-426614174000
+        reservaId:
+          type: string
+          format: uuid
+          description: ID da reserva
+          example: 5f761bba-e810-470f-9e3e-8a9ef3f1181b
+        usuarioId:
+          type: string
+          format: uuid
+          description: ID do usuario
+          example: a2257476-048d-406a-9865-156834bb277c
+        criacao:
+          type: string
+          format: date-time
+          description: Data e hora da criação da avaliação
+          example: 2021-06-01T10:00:00Z
+        alteracao:
+          type: string
+          format: date-time
+          description: Data e hora da alteração da avaliação
+          example: 2021-06-01T10:00:00Z
+        exclusao:
+          type: string
+          format: date-time
+          description: Data e hora da exclusão da avaliação
+          example: 2021-06-01T10:00:00Z
+        ativo:
+          type: boolean
+          description: Indicador se a avaliação esta ativa
+          example: true
+        comentario:
+          type: string
+          minLength: 50
+          maxLength: 500
+          description: Comentario da avaliação
+          example: Um simples comentário sobre minha experiência no restaurante X
+        nota:
+          type: number
+          format: double
+          description: A nota do restaurante
+          example: 4.3
+          minimum: 0.0
+          maximum: 5.0
+          multipleOf: 0.1
+    PaginadaAvaliacao:
+      type: object
+      properties:
+        pagina:
+          type: integer
+          example: 1
+        porPagina:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          format: int64
+          example: 100
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Avaliacao"
+    CriaAvaliacao:
+      required:
+        - comentario
+        - nota
+      type: object
+      properties:
+        comentario:
+          type: string
+          minLength: 50
+          maxLength: 500
+          description: Comentario da avaliação
+          example: Um simples comentário sobre minha experiência no restaurante X
+        nota:
+          type: number
+          format: double
+          description: A nota do restaurante
+          example: 4.3
+          minimum: 0.0
+          maximum: 5.0
+          multipleOf: 0.1
+    AtualizaAvaliacao:
+      required:
+        - comentario
+        - nota
+      type: object
+      properties:
+        comentario:
+          type: string
+          minLength: 50
+          maxLength: 500
+          description: Comentario da avaliação
+          example: Um simples comentário sobre minha experiência no restaurante X
+        nota:
+          type: number
+          format: double
+          description: A nota do restaurante
+          example: 4.3
+          minimum: 0.0
+          maximum: 5.0
+          multipleOf: 0.1
+    NotaRestaurante:
+      type: object
+      properties:
+        restauranteId:
+          type: string
+          format: uuid
+          description: ID do restaurante
+          example: 3a7f8041-5dd8-4487-b05c-5252547235bd
+        avaliacoes:
+          type: integer
+          format: int64
+          description: Quantidade de avaliações
+          example: 10
+        nota:
+          type: number
+          format: double
+          description: A nota do restaurante
+          example: 4.3
+          minimum: 0.0
+          maximum: 5.0
+          multipleOf: 0.1
