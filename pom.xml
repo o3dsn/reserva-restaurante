@@ -122,7 +122,7 @@
 							</configOptions>
 						</configuration>
 					</execution>
-					<!-- <execution>
+					<execution>
 						<id>reserva</id>
 						<goals>
 							<goal>generate</goal>
@@ -140,7 +140,7 @@
 								<java8>true</java8>
 							</configOptions>
 						</configuration>
-					</execution>-->
+					</execution>
 					<execution>
 						<id>restautante</id>
 						<goals>
