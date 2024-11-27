@@ -1,6 +1,7 @@
 package br.com.fiap.reservarestaurante.infrastructure.config;
 
 import br.com.fiap.reservarestaurante.application.repositories.AvaliacaoRepository;
+import br.com.fiap.reservarestaurante.application.repositories.ReservaRepository;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.create.AvaliacaoCreateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.create.DefaultAvaliacaoCreateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.delete.AvaliacaoDeleteUseCase;
@@ -15,8 +16,12 @@ import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.not
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.nota.NotaRestauranteGetByIdUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.update.AvaliacaoUpdateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.update.DefaultAvaliacaoUpdateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.create.DefaultReservaCreateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.create.ReservaCreateUseCase;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.AvaliacaoJPARepository;
+import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.ReservaJPARepository;
 import br.com.fiap.reservarestaurante.infrastructure.repositories.AvaliacaoRepositoryImpl;
+import br.com.fiap.reservarestaurante.infrastructure.repositories.ReservaRepositoryImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -63,4 +68,13 @@ public class ApplicationConfig {
         return new DefaultNotaRestauranteGetByUseCase(avaliacaoRepository);
     }
 
+    @Bean
+    public ReservaRepository reservaRepository(final ReservaJPARepository reservaJPARepository) {
+        return new ReservaRepositoryImpl(reservaJPARepository);
+    }
+
+    @Bean
+    public ReservaCreateUseCase reservaCreateUseCase(final ReservaRepository reservaRepository) {
+        return new DefaultReservaCreateUseCase(reservaRepository);
+    }
 }
