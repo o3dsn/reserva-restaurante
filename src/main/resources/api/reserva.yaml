@@ -1,0 +1,292 @@
+openapi: 3.0.3
+info:
+  title: Swagger Reserva Restaurante - Avaliações
+  description: |-
+    API para realizar reservas nos Restaurantes - FIAP Fase 3 Tech Challenge
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://localhost:8080
+    description: Local server
+
+tags:
+  - name: Reserva
+    description: Todo sobre reservas nos restaurantes
+
+paths:
+  /reservas:
+    post:
+      tags:
+        - Reserva
+      summary: Adiciona uma nova reserva
+      description: Adiciona uma nova reserva no restaurante pelo o ID restaurante
+      operationId: cadastrarReserva
+      parameters:
+        - name: restauranteId
+          in: query
+          description: ID do restaurante
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: usuarioId
+          in: query
+          description: ID do usuário
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Cria uma nova reserva no restaurante
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriaReserva'
+        required: true
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reserva'
+        '400':
+          description: Entrada inválida
+        '422':
+          description: Exceção de validação
+    get:
+      tags:
+        - Reserva
+      summary: Encontra todas as reservas
+      description: Retorna todas as reservas
+      operationId: buscarReservas
+      parameters:
+        - name: pagina
+          in: query
+          description: Número da página
+          required: false
+          schema:
+            type: integer
+            default: 0
+            example: 1
+        - name: porPagina
+          in: query
+          description: Número de itens por página
+          required: false
+          schema:
+            type: integer
+            default: 10
+            example: 10
+        - name: status
+          in: query
+          description: >
+            Status da reserva:
+              * `PENDENTE` - Reservas que ainda estão pendentes
+              * `CONFIRMADA` - Reservas que foram confirmadas
+              * `CANCELADA` - Reservas que foram canceladas
+              * `FINALIZADA` - Reservas finalizadas
+          required: false
+          schema:
+            type: string
+            enum:
+              - PENDENTE
+              - CONFIRMADA
+              - CANCELADA
+              - FINALIZADA
+            default: PENDENTE
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginadaReserva'
+
+  /reservas/{id}:
+    get:
+      tags:
+        - Reserva
+      summary: Encontra reserva por ID
+      description: Retorna uma única reserva
+      operationId: buscarReservaPorId
+      parameters:
+        - name: id
+          in: path
+          description: ID da reserva
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reserva'
+        '400':
+          description: ID inválido fornecido
+        '404':
+          description: Reserva não encontrada
+    patch:
+      tags:
+        - Reserva
+      summary: Atualiza uma reserva existente
+      description: Atualiza uma reserva pelo seu Id
+      operationId: atualizarReserva
+      parameters:
+        - name: id
+          in: path
+          description: ID da reserva
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Atualiza uma reserva existente em um restaurante
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizaReserva'
+        required: true
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reserva'
+        '400':
+          description: ID inválido fornecido
+        '404':
+          description: Reserva não encontrada
+        '422':
+          description: Exceção de validação
+    delete:
+      tags:
+        - Reserva
+      summary: Deleta uma reserva
+      description: Deleta uma reserva por exclusão lógica
+      operationId: deletarReserva
+      parameters:
+        - name: id
+          in: path
+          description: ID da reserva
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Reserva deletada
+        '400':
+          description: ID inválido fornecido
+        '404':
+          description: Reserva não encontrada
+
+components:
+  schemas:
+    Reserva:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID da reserva
+          example: 123e4567-e89b-12d3-a456-426614174000
+        restauranteId:
+          type: string
+          format: uuid
+          description: ID do restaurante
+          example: 5f761bba-e810-470f-9e3e-8a9ef3f1181b
+        usuarioId:
+          type: string
+          format: uuid
+          description: ID do usuário
+          example: a2257476-048d-406a-9865-156834bb277c
+        dataHorarioReserva:
+          type: string
+          format: date-time
+          description: Data e hora da reserva
+          example: 2024-11-23T15:00:00Z
+        comentario:
+          type: string
+          maxLength: 500
+          description: Comentário sobre a reserva
+          example: Um comentário sobre a reserva
+        status:
+          type: string
+          description: Status atual da reserva
+          enum:
+            - PENDENTE
+            - CONFIRMADA
+            - CANCELADA
+            - FINALIZADA
+          example: CONFIRMADA
+        criacao:
+          type: string
+          format: date-time
+          description: Data e hora de criação no sistema
+          example: 2021-06-01T10:00:00Z
+        alteracao:
+          type: string
+          format: date-time
+          description: Data e hora de última alteração no sistema
+          example: 2021-06-01T10:00:00Z
+    PaginadaReserva:
+      type: object
+      properties:
+        pagina:
+          type: integer
+          example: 1
+        porPagina:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          format: int64
+          example: 100
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Reserva"
+    CriaReserva:
+      required:
+        - dataHorarioReserva
+        - comentario
+      type: object
+      properties:
+        dataHorarioReserva:
+          type: string
+          format: date-time
+          description: Data e hora da reserva
+          example: 2024-11-23T15:00:00Z
+        comentario:
+          type: string
+          maxLength: 500
+          description: Comentário sobre a reserva
+          example: Um comentário sobre a reserva
+    AtualizaReserva:
+      type: object
+      properties:
+        dataHorarioReserva:
+          type: string
+          format: date-time
+          description: Data e hora da reserva
+          example: 2024-11-23T15:00:00Z
+        comentario:
+          type: string
+          maxLength: 500
+          description: Comentário sobre a reserva
+          example: Um comentário atualizado sobre a reserva
+        status:
+          type: string
+          description: Status atual da reserva
+          enum:
+            - PENDENTE
+            - CONFIRMADA
+            - CANCELADA
+            - FINALIZADA
+          example: CONFIRMADA
