@@ -5,12 +5,16 @@ import br.com.fiap.reservarestaurante.application.repositories.AvaliacaoReposito
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class DefaultAvaliacaoListByIdRestauranteUseCase extends AvaliacaoListByIdRestauranteUseCase {
+public class DefaultAvaliacaoListByIdRestauranteUseCase
+    extends AvaliacaoListByIdRestauranteUseCase {
 
-    private final AvaliacaoRepository avaliacaoRepository;
+  private final AvaliacaoRepository avaliacaoRepository;
 
-    @Override
-    public Pagination<AvaliacaoListByIdRestauranteUseCaseOutput> execute(final AvaliacaoListByIdRestauranteUseCaseInput input) {
-        return avaliacaoRepository.buscarPorIdRestaurante(input.page(), input.restauranteId()).mapItems(AvaliacaoListByIdRestauranteUseCaseOutput::from);
-    }
+  @Override
+  public Pagination<AvaliacaoListByIdRestauranteUseCaseOutput> execute(
+      final AvaliacaoListByIdRestauranteUseCaseInput input) {
+    return avaliacaoRepository
+        .buscarPorIdRestaurante(input.page(), input.restauranteId())
+        .mapItems(AvaliacaoListByIdRestauranteUseCaseOutput::from);
+  }
 }

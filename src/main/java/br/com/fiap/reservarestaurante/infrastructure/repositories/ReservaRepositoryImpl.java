@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ReservaRepositoryImpl implements ReservaRepository {
-    private final ReservaJPARepository reservaJPARepository;
+  private final ReservaJPARepository reservaJPARepository;
 
-    @Override
-    @Transactional
-    public Reserva criar(final Reserva reserva) {
-        return save(reserva);
-    }
+  @Override
+  @Transactional
+  public Reserva criar(final Reserva reserva) {
+    return save(reserva);
+  }
 
-    private Reserva save(final Reserva reserva) {
-        return reservaJPARepository.save(ReservaJPAEntity.of(reserva)).toReserva();
-    }
+  private Reserva save(final Reserva reserva) {
+    return reservaJPARepository.save(ReservaJPAEntity.of(reserva)).toReserva();
+  }
 }

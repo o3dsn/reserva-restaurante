@@ -8,13 +8,17 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public class DefaultNotaRestauranteGetByUseCase extends NotaRestauranteGetByIdUseCase {
 
-    private final AvaliacaoRepository avaliacaoRepository;
+  private final AvaliacaoRepository avaliacaoRepository;
 
-    @Override
-    public NotaRestauranteGetByIdUseCaseOutput execute(final String id) {
-        return avaliacaoRepository.buscarNotaRestaurante(id)
-                .map(NotaRestauranteGetByIdUseCaseOutput::from)
-                .orElseThrow(()->new AvaliacaoException("Nota para o restaurante com ID %s não encontrado.".formatted(id), HttpStatus.NOT_FOUND));
-    }
-
+  @Override
+  public NotaRestauranteGetByIdUseCaseOutput execute(final String id) {
+    return avaliacaoRepository
+        .buscarNotaRestaurante(id)
+        .map(NotaRestauranteGetByIdUseCaseOutput::from)
+        .orElseThrow(
+            () ->
+                new AvaliacaoException(
+                    "Nota para o restaurante com ID %s não encontrado.".formatted(id),
+                    HttpStatus.NOT_FOUND));
+  }
 }

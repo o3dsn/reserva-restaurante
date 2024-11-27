@@ -1,4 +1,3 @@
 package br.com.fiap.reservarestaurante.application.repositories;
 
-public interface UsuarioRepository {
-}
+public interface UsuarioRepository {}
