@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "usuarios")
 public class UsuarioJPAEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, unique = true, length = 36)
-    private String id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id", nullable = false, unique = true, length = 36)
+  private String id;
 }

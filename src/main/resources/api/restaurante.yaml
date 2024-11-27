@@ -1,0 +1,460 @@
+openapi: 3.0.3
+info:
+  title: Swagger Reserva Restaurante - Restaurante
+  description: |-
+    Api para cadastrar restaurante - FIAP Fase 3 Tech Challenge
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://localhost:8080
+    description: Local server
+
+tags:
+  - name: Restaurante
+    description: Tudo sobre restaurantes
+paths:
+  /restaurantes:
+    get:
+      summary: Lista de restaurantes paginada
+      description: Retorna uma lista de restaurantes com paginação.
+      operationId: buscarRestaurantes
+      parameters:
+        - name: pagina
+          in: query
+          description: Número da página.
+          required: false
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: porPagina
+          in: query
+          description: Quantidade de itens por página.
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 100
+        - name: cidade
+          in: query
+          description: Filtra restaurantes por cidade.
+          required: false
+          schema:
+            type: string
+        - name: estado
+          in: query
+          description: Filtra restaurantes por estado.
+          required: false
+          schema:
+            type: string
+        - name: avaliacaoMinima
+          in: query
+          description: Filtra restaurantes por uma avaliação mínima.
+          required: false
+          schema:
+            type: number
+            format: double
+            minimum: 0.0
+            maximum: 5.0
+            example: 4.0
+        - name: tipoCozinhaId
+          in: query
+          description: Filtra restaurantes por tipo de cozinha.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de restaurantes retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginadaRestaurante'
+        '400':
+          description: Requisição inválida.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+        '500':
+          description: Erro interno no servidor.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+    post:
+      summary: Adiciona um novo restaurante
+      description: Cria um novo restaurante no sistema.
+      operationId: cadastrarRestaurante
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CriaRestaurante"
+      responses:
+        '201':
+          description: Restaurante criado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Restaurante"
+        '400':
+          description: Requisição inválida.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+        '500':
+          description: Erro interno no servidor.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+
+  /restaurantes/{id}:
+    get:
+      summary: Consulta restaurante por ID
+      description: Retorna os detalhes de um restaurante específico pelo seu ID.
+      operationId: buscarRestaurantePorId
+      parameters:
+        - name: id
+          in: path
+          description: ID do restaurante.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalhes do restaurante.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Restaurante"
+        '404':
+          description: Restaurante não encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+        '500':
+          description: Erro interno no servidor.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+    put:
+      summary: Atualiza informações de um restaurante
+      description: Atualiza os detalhes de um restaurante pelo ID.
+      operationId: atualizarRestaurante
+      parameters:
+        - name: id
+          in: path
+          description: ID do restaurante.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AtualizaRestaurante"
+      responses:
+        '200':
+          description: Restaurante atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Restaurante"
+        '400':
+          description: Requisição inválida.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+        '404':
+          description: Restaurante não encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+        '500':
+          description: Erro interno no servidor.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+    delete:
+      summary: Remove um restaurante pelo ID
+      description: Deleta um restaurante do sistema pelo seu ID.
+      operationId: deletarRestaurante
+      parameters:
+        - name: id
+          in: path
+          description: ID do restaurante.
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Restaurante removido com sucesso.
+        '404':
+          description: Restaurante não encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+        '500':
+          description: Erro interno no servidor.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+
+components:
+  schemas:
+    Restaurante:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID do restaurante.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        nome:
+          type: string
+          description: Nome do restaurante.
+          example: Restaurante A
+        descricao:
+          type: string
+          description: Descrição do restaurante.
+          example: Restaurante especializado em culinária italiana.
+        endereco:
+          type: string
+          description: Endereço do restaurante.
+          example: Rua das Flores, 123
+        cidade:
+          type: string
+          description: Cidade do restaurante.
+          example: São Paulo
+        estado:
+          type: string
+          description: Estado do restaurante.
+          example: SP
+        bairro:
+          type: string
+          description: Bairro do restaurante.
+          example: Vila Mariana
+        tipoCozinhaId:
+          type: string
+          description: ID do tipo de cozinha do restaurante.
+          example: 1a2b3c4d5e6f7g8h9i0j
+        faixaPreco:
+          type: string
+          description: Faixa de preço do restaurante.
+          example: $$ - $$$
+        telefone:
+          type: string
+          description: Telefone para contato.
+          example: +55 11 98765-4321
+        email:
+          type: string
+          format: email
+          description: Email para contato.
+          example: contato@restaurantea.com
+        avaliacaoMedia:
+          type: number
+          format: double
+          description: Avaliação média.
+          example: 4.7
+        avaliacaoTotal:
+          type: integer
+          description: Total de avaliações.
+          example: 250
+        horarioAbertura:
+          type: string
+          description: Horário de abertura do restaurante.
+          example: "10:00:00"
+        horarioFechamento:
+          type: string
+          description: Horário de fechamento do restaurante.
+          example: "10:00:00"
+    PaginadaRestaurante:
+      type: object
+      properties:
+        pagina:
+          type: integer
+          description: Número da página atual.
+          example: 1
+        porPagina:
+          type: integer
+          description: Quantidade de itens por página.
+          example: 10
+        total:
+          type: integer
+          format: int64
+          example: 100
+        itens:
+          type: array
+          description: Lista de restaurantes.
+          items:
+            $ref: "#/components/schemas/Restaurante"
+    CriaRestaurante:
+      required:
+        - nome
+        - descricao
+        - endereco
+        - cidade
+        - estado
+        - telefone
+        - tipoCozinhaId
+        - faixaPreco
+      type: object
+      properties:
+        nome:
+          type: string
+          minLength: 2
+          maxLength: 100
+          description: Nome do restaurante.
+          example: Restaurante A
+        descricao:
+          type: string
+          minLength: 10
+          maxLength: 500
+          description: Descrição do restaurante.
+          example: Restaurante especializado em culinária italiana.
+        endereco:
+          type: string
+          minLength: 5
+          maxLength: 200
+          description: Endereço do restaurante.
+          example: Rua das Flores, 123
+        cidade:
+          type: string
+          minLength: 2
+          maxLength: 100
+          description: Cidade do restaurante.
+          example: São Paulo
+        estado:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: Estado do restaurante.
+          example: SP
+        bairro:
+          type: string
+          minLength: 2
+          maxLength: 100
+          description: Bairro do restaurante.
+          example: Vila Mariana
+        tipoCozinhaId:
+          type: string
+          description: ID do tipo de cozinha.
+          example: 1a2b3c4d5e6f7g8h9i0j
+        faixaPreco:
+          type: string
+          description: Faixa de preço do restaurante.
+          example: $$ - $$$
+        telefone:
+          type: string
+          pattern: "^\\+\\d{1,2}\\s\\d{2}\\s\\d{4,5}-\\d{4}$"
+          description: Telefone para contato.
+          example: +55 11 98765-4321
+        email:
+          type: string
+          format: email
+          description: Email para contato.
+          example: contato@restaurantea.com
+        horarioAbertura:
+          type: string
+          description: Horário de abertura do restaurante.
+          example: "10:00:00"
+        horarioFechamento:
+          type: string
+          description: Horário de fechamento do restaurante.
+          example: "10:00:00"
+    AtualizaRestaurante:
+      type: object
+      properties:
+        nome:
+          type: string
+          minLength: 2
+          maxLength: 100
+          description: Nome do restaurante.
+          example: Restaurante A
+        descricao:
+          type: string
+          minLength: 10
+          maxLength: 500
+          description: Descrição do restaurante.
+          example: Restaurante especializado em culinária italiana.
+        endereco:
+          type: string
+          minLength: 5
+          maxLength: 200
+          description: Endereço do restaurante.
+          example: Rua das Flores, 123
+        cidade:
+          type: string
+          minLength: 2
+          maxLength: 100
+          description: Cidade do restaurante.
+          example: São Paulo
+        estado:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: Estado do restaurante.
+          example: SP
+        bairro:
+          type: string
+          minLength: 2
+          maxLength: 100
+          description: Bairro do restaurante.
+          example: Vila Mariana
+        tipoCozinhaId:
+          type: string
+          description: ID do tipo de cozinha.
+          example: 1a2b3c4d5e6f7g8h9i0j
+        faixaPreco:
+          type: string
+          description: Faixa de preço do restaurante.
+          example: $$ - $$$
+        telefone:
+          type: string
+          pattern: "^\\+\\d{1,2}\\s\\d{2}\\s\\d{4,5}-\\d{4}$"
+          description: Telefone para contato.
+          example: +55 11 98765-4321
+        email:
+          type: string
+          format: email
+          description: Email para contato.
+          example: contato@restaurantea.com
+        horarioAbertura:
+          type: string
+          description: Horário de abertura do restaurante.
+          example: "10:00:00"
+        horarioFechamento:
+          type: string
+          description: Horário de fechamento do restaurante.
+          example: "10:00:00"
+    Erro:
+      type: object
+      properties:
+        codigo:
+          type: string
+          description: Código do erro.
+          example: NOT_FOUND
+        mensagem:
+          type: string
+          description: Mensagem detalhada do erro.
+          example: Restaurante não encontrado.
+        detalhes:
+          type: array
+          description: Detalhes adicionais sobre o erro.
+          items:
+            type: string

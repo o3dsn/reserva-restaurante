@@ -7,11 +7,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DefaultAvaliacaoListUseCase extends AvaliacaoListUseCase {
 
-    private final AvaliacaoRepository avaliacaoRepository;
+  private final AvaliacaoRepository avaliacaoRepository;
 
-    @Override
-    public Pagination<AvaliacaoListUseCaseOutput> execute(final AvaliacaoListUseCaseInput input) {
-        return avaliacaoRepository.buscarTudo(input.page(), input.ativo()).mapItems(AvaliacaoListUseCaseOutput::from);
-    }
-
+  @Override
+  public Pagination<AvaliacaoListUseCaseOutput> execute(final AvaliacaoListUseCaseInput input) {
+    return avaliacaoRepository
+        .buscarTudo(input.page(), input.ativo())
+        .mapItems(AvaliacaoListUseCaseOutput::from);
+  }
 }

@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ReservaController {
 
-    @GetMapping("/hola")
-    public ResponseEntity<String> hola() {
-        return ResponseEntity.ok("hola");
-    }
-
+  @GetMapping("/hola")
+  public ResponseEntity<String> hola() {
+    return ResponseEntity.ok("hola");
+  }
 }

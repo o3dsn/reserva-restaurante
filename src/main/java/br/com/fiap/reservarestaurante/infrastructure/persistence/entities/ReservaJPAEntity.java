@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "reservas")
 public class ReservaJPAEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, unique = true, length = 36)
-    private String id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id", nullable = false, unique = true, length = 36)
+  private String id;
 }

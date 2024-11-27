@@ -7,21 +7,21 @@ import java.util.Locale;
 
 public class NumberUtils {
 
-    private static final DecimalFormat df;
+  private static final DecimalFormat df;
 
-    static {
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
-        symbols.setDecimalSeparator('.');
-        df = new DecimalFormat("#.0", symbols);
-        df.setRoundingMode(RoundingMode.HALF_DOWN);
-    }
+  static {
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+    symbols.setDecimalSeparator('.');
+    df = new DecimalFormat("#.0", symbols);
+    df.setRoundingMode(RoundingMode.HALF_DOWN);
+  }
 
-    private NumberUtils() {
-        throw new UnsupportedOperationException("Esta é uma classe utilitária e não pode ser instanciada.");
-    }
+  private NumberUtils() {
+    throw new UnsupportedOperationException(
+        "Esta é uma classe utilitária e não pode ser instanciada.");
+  }
 
-    public static double roundToOneDecimalPlace(double value) {
-        return Double.parseDouble(df.format(value));
-    }
-
+  public static double roundToOneDecimalPlace(double value) {
+    return Double.parseDouble(df.format(value));
+  }
 }

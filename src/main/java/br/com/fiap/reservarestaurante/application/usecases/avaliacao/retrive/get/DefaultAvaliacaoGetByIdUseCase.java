@@ -9,13 +9,18 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public class DefaultAvaliacaoGetByIdUseCase extends AvaliacaoGetByIdUseCase {
 
-    private final AvaliacaoRepository avaliacaoRepository;
+  private final AvaliacaoRepository avaliacaoRepository;
 
-    @Override
-    public AvaliacaoGetByIdUseCaseOutput execute(final String id) {
-        final var avaliacaoId = new AvaliacaoId(id);
-        return avaliacaoRepository.buscarPorId(avaliacaoId)
-                .map(AvaliacaoGetByIdUseCaseOutput::from)
-                .orElseThrow(()->new AvaliacaoException("Avaliação com ID %s não encontrado.".formatted(avaliacaoId), HttpStatus.NOT_FOUND));
-    }
+  @Override
+  public AvaliacaoGetByIdUseCaseOutput execute(final String id) {
+    final var avaliacaoId = new AvaliacaoId(id);
+    return avaliacaoRepository
+        .buscarPorId(avaliacaoId)
+        .map(AvaliacaoGetByIdUseCaseOutput::from)
+        .orElseThrow(
+            () ->
+                new AvaliacaoException(
+                    "Avaliação com ID %s não encontrado.".formatted(avaliacaoId),
+                    HttpStatus.NOT_FOUND));
+  }
 }

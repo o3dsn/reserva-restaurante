@@ -84,6 +84,7 @@
 	</dependencies>
 
 	<build>
+		<defaultGoal>clean com.coveo:fmt-maven-plugin:2.9:format install</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -121,7 +122,7 @@
 							</configOptions>
 						</configuration>
 					</execution>
-					<execution>
+					<!-- <execution>
 						<id>reserva</id>
 						<goals>
 							<goal>generate</goal>
@@ -139,18 +140,18 @@
 								<java8>true</java8>
 							</configOptions>
 						</configuration>
-					</execution>
+					</execution>-->
 					<execution>
 						<id>restautante</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/api/restautante.yaml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/api/restaurante.yaml</inputSpec>
 							<language>spring</language>
 							<generateSupportingFiles>false</generateSupportingFiles>
-							<apiPackage>br.com.fiap.restautante.api</apiPackage>
-							<modelPackage>br.com.fiap.restautante.model</modelPackage>
+							<apiPackage>br.com.fiap.restaurante.api</apiPackage>
+							<modelPackage>br.com.fiap.restaurante.model</modelPackage>
 							<modelNameSuffix>DTO</modelNameSuffix>
 							<configOptions>
 								<interfaceOnly>true</interfaceOnly>
@@ -159,7 +160,7 @@
 							</configOptions>
 						</configuration>
 					</execution>
-					<execution>
+					<!-- <execution>
 						<id>usuario</id>
 						<goals>
 							<goal>generate</goal>
@@ -177,7 +178,7 @@
 								<java8>true</java8>
 							</configOptions>
 						</configuration>
-					</execution>
+					</execution>-->
 				</executions>
 			</plugin>
 			<plugin>
