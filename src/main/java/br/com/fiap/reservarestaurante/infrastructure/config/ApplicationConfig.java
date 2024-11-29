@@ -57,8 +57,8 @@ public class ApplicationConfig {
 
   @Bean
   public AvaliacaoCreateUseCase avaliacaoCreateUseCase(
-      final AvaliacaoRepository avaliacaoRepository) {
-    return new DefaultAvaliacaoCreateUseCase(avaliacaoRepository);
+      final AvaliacaoRepository avaliacaoRepository, final ReservaGetByIdUseCase reservaGetByIdUseCase) {
+    return new DefaultAvaliacaoCreateUseCase(avaliacaoRepository, reservaGetByIdUseCase);
   }
 
   @Bean

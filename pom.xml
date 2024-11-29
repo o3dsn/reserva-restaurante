@@ -32,6 +32,7 @@
 		<mapstruct.version>1.6.0</mapstruct.version>
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,6 +46,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -71,6 +76,15 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -81,6 +95,89 @@
 			<artifactId>swagger-annotations</artifactId>
 			<version>2.2.22</version>
 		</dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <!-- para testar controller de forma mais fluida -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>spring-mock-mvc</artifactId>
+            <version>5.3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>5.3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy</groupId>
+                    <artifactId>groovy</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.codehaus.groovy</groupId>
+                    <artifactId>groovy-xml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- relatório de testes -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit5</artifactId>
+            <version>2.23.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>2.23.0</version>
+        </dependency>
+        <!-- teste de log-->
+        <dependency>
+            <groupId>com.callibrity.logging</groupId>
+            <artifactId>log-tracker</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <!-- cucumber -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.13.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>7.13.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>1.9.3</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Dependências do Gatling -->
+        <dependency>
+            <groupId>io.gatling</groupId>
+            <artifactId>gatling-app</artifactId>
+            <version>3.9.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.gatling.highcharts</groupId>
+            <artifactId>gatling-charts-highcharts</artifactId>
+            <version>3.9.5</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -112,6 +209,7 @@
 							<inputSpec>${project.basedir}/src/main/resources/api/avaliacao.yaml</inputSpec>
 							<language>spring</language>
 							<generateSupportingFiles>false</generateSupportingFiles>
+							<output>${project.build.directory}/generated-sources/swagger</output>
 							<apiPackage>br.com.fiap.avaliacao.api</apiPackage>
 							<modelPackage>br.com.fiap.avaliacao.model</modelPackage>
 							<modelNameSuffix>DTO</modelNameSuffix>
@@ -131,6 +229,7 @@
 							<inputSpec>${project.basedir}/src/main/resources/api/reserva.yaml</inputSpec>
 							<language>spring</language>
 							<generateSupportingFiles>false</generateSupportingFiles>
+							<output>${project.build.directory}/generated-sources/swagger</output>
 							<apiPackage>br.com.fiap.reserva.api</apiPackage>
 							<modelPackage>br.com.fiap.reserva.model</modelPackage>
 							<modelNameSuffix>DTO</modelNameSuffix>
@@ -142,7 +241,7 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>restautante</id>
+						<id>restaurante</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
@@ -150,6 +249,7 @@
 							<inputSpec>${project.basedir}/src/main/resources/api/restaurante.yaml</inputSpec>
 							<language>spring</language>
 							<generateSupportingFiles>false</generateSupportingFiles>
+							<output>${project.build.directory}/generated-sources/swagger</output>
 							<apiPackage>br.com.fiap.restaurante.api</apiPackage>
 							<modelPackage>br.com.fiap.restaurante.model</modelPackage>
 							<modelNameSuffix>DTO</modelNameSuffix>
@@ -169,6 +269,7 @@
 							<inputSpec>${project.basedir}/src/main/resources/api/usuario.yaml</inputSpec>
 							<language>spring</language>
 							<generateSupportingFiles>false</generateSupportingFiles>
+							<output>${project.build.directory}/generated-sources/swagger</output>
 							<apiPackage>br.com.fiap.usuario.api</apiPackage>
 							<modelPackage>br.com.fiap.usuario.model</modelPackage>
 							<modelNameSuffix>DTO</modelNameSuffix>

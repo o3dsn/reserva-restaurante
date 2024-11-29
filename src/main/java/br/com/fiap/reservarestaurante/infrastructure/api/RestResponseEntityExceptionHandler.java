@@ -26,7 +26,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
   public ResponseEntity<DominioException> avaliacaoException(AvaliacaoException ex) {
     this.limparErrors();
     errors.put("erro", ex.getMessage());
-    return ResponseEntity.badRequest().body(new DominioException(ex.getStatus(), errors));
+    return ResponseEntity.status(ex.getStatus()).body(new DominioException(ex.getStatus(), errors));
   }
 
   @Override

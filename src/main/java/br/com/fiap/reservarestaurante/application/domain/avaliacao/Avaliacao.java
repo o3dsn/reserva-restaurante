@@ -1,6 +1,7 @@
 package br.com.fiap.reservarestaurante.application.domain.avaliacao;
 
-import br.com.fiap.reservarestaurante.application.utils.NumberUtils;
+
+import java.math.BigDecimal;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,9 +18,10 @@ public class Avaliacao {
   private Instant exclusao;
   private boolean ativo;
   private String comentario;
-  private double nota;
+  private BigDecimal nota;
 
-  public static Avaliacao nova(String reservaId, String usuarioId, String comentario, double nota) {
+  public static Avaliacao nova(
+      String reservaId, String usuarioId, String comentario, BigDecimal nota) {
     return new Avaliacao(
         new AvaliacaoId(null),
         reservaId,
@@ -29,12 +31,12 @@ public class Avaliacao {
         null,
         true,
         comentario,
-        NumberUtils.roundToOneDecimalPlace(nota));
+        nota);
   }
 
-  public void atualizar(String comentario, double nota) {
+  public void atualizar(String comentario, BigDecimal nota) {
     this.comentario = comentario;
-    this.nota = NumberUtils.roundToOneDecimalPlace(nota);
+    this.nota = nota;
     this.alteracao = Instant.now();
   }
 
