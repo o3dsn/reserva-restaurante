@@ -31,8 +31,8 @@ public class ReservaController implements ReservasApi {
 
     @Override
     public ResponseEntity<ReservaDTO> cadastrarReserva(
-            UUID restauranteId,
-            UUID usuarioId,
+            String restauranteId,
+            String usuarioId,
             CriaReservaDTO body) {
         final var useCaseInput = reservaMapper.fromDTO(restauranteId, usuarioId, body);
         final var useCaseOutput = reservaCreateUseCase.execute(useCaseInput);
