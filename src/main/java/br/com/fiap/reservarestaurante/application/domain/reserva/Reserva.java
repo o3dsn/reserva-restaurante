@@ -23,14 +23,13 @@ public class Reserva {
         return new Reserva(new ReservaId(null), restauranteId, usuarioId, status, comentario, dataHorarioReserva, Instant.now(), null);
     }
 
-    public void atualizar(ReservaDTO.StatusEnum status, String comentario, Instant dataHorarioReserva) {
+    public void atualizar(ReservaDTO.StatusEnum status) {
         this.status = status;
-        this.comentario = comentario;
-        this.dataHorarioReserva = dataHorarioReserva;
         this.alteracao = Instant.now();
     }
 
     public void excluir() {
-        this.status = ReservaDTO.StatusEnum.FINALIZADA;
+        this.status = ReservaDTO.StatusEnum.CANCELADA;
+        this.alteracao = Instant.now();
     }
 }
