@@ -7,22 +7,23 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class DefaultReservaCreateUseCase extends ReservaCreateUseCase {
-    private final ReservaRepository reservaRepository;
+  private final ReservaRepository reservaRepository;
 
-    @Override
-    public ReservaCreateUseCaseOutput execute(ReservaCreateUseCaseInput input) {
-        /* TODO
-            - Validar a data selecionada da reserva
-            - Buscar o restaurante por id
-            - Buscar o usuario por id
-            - colocar o status correto
-        */
-        final var novaReserva = Reserva.nova(
-                input.restauranteId(),
-                input.usuarioId(),
-                ReservaDTO.StatusEnum.PENDENTE,
-                input.comentario(),
-                input.dataHorarioReserva());
-        return ReservaCreateUseCaseOutput.from(reservaRepository.criar(novaReserva));
-    }
+  @Override
+  public ReservaCreateUseCaseOutput execute(ReservaCreateUseCaseInput input) {
+    /* TODO
+        - Validar a data selecionada da reserva
+        - Buscar o restaurante por id
+        - Buscar o usuario por id
+        - colocar o status correto
+    */
+    final var novaReserva =
+        Reserva.nova(
+            input.restauranteId(),
+            input.usuarioId(),
+            ReservaDTO.StatusEnum.PENDENTE,
+            input.comentario(),
+            input.dataHorarioReserva());
+    return ReservaCreateUseCaseOutput.from(reservaRepository.criar(novaReserva));
+  }
 }

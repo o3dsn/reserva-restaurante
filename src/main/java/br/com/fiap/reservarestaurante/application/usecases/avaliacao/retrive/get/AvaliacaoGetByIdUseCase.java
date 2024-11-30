@@ -2,4 +2,5 @@ package br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.ge
 
 import br.com.fiap.reservarestaurante.application.usecases.UseCase;
 
-public abstract class AvaliacaoGetByIdUseCase extends UseCase<String, AvaliacaoGetByIdUseCaseOutput> {}
+public abstract class AvaliacaoGetByIdUseCase
+    extends UseCase<String, AvaliacaoGetByIdUseCaseOutput> {}

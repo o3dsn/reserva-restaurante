@@ -84,6 +84,7 @@
 	</dependencies>
 
 	<build>
+		<defaultGoal>clean com.coveo:fmt-maven-plugin:2.9:format install</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -140,44 +141,44 @@
 							</configOptions>
 						</configuration>
 					</execution>
-<!--					<execution>-->
-<!--						<id>restautante</id>-->
-<!--						<goals>-->
-<!--							<goal>generate</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<inputSpec>${project.basedir}/src/main/resources/api/restautante.yaml</inputSpec>-->
-<!--							<language>spring</language>-->
-<!--							<generateSupportingFiles>false</generateSupportingFiles>-->
-<!--							<apiPackage>br.com.fiap.restautante.api</apiPackage>-->
-<!--							<modelPackage>br.com.fiap.restautante.model</modelPackage>-->
-<!--							<modelNameSuffix>DTO</modelNameSuffix>-->
-<!--							<configOptions>-->
-<!--								<interfaceOnly>true</interfaceOnly>-->
-<!--								<jakarta>true</jakarta>-->
-<!--								<java8>true</java8>-->
-<!--							</configOptions>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--					<execution>-->
-<!--						<id>usuario</id>-->
-<!--						<goals>-->
-<!--							<goal>generate</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<inputSpec>${project.basedir}/src/main/resources/api/usuario.yaml</inputSpec>-->
-<!--							<language>spring</language>-->
-<!--							<generateSupportingFiles>false</generateSupportingFiles>-->
-<!--							<apiPackage>br.com.fiap.usuario.api</apiPackage>-->
-<!--							<modelPackage>br.com.fiap.usuario.model</modelPackage>-->
-<!--							<modelNameSuffix>DTO</modelNameSuffix>-->
-<!--							<configOptions>-->
-<!--								<interfaceOnly>true</interfaceOnly>-->
-<!--								<jakarta>true</jakarta>-->
-<!--								<java8>true</java8>-->
-<!--							</configOptions>-->
-<!--						</configuration>-->
-<!--					</execution>-->
+					<execution>
+						<id>restautante</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/api/restaurante.yaml</inputSpec>
+							<language>spring</language>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<apiPackage>br.com.fiap.restaurante.api</apiPackage>
+							<modelPackage>br.com.fiap.restaurante.model</modelPackage>
+							<modelNameSuffix>DTO</modelNameSuffix>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<jakarta>true</jakarta>
+								<java8>true</java8>
+							</configOptions>
+						</configuration>
+					</execution>
+					<!-- <execution>
+						<id>usuario</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/api/usuario.yaml</inputSpec>
+							<language>spring</language>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<apiPackage>br.com.fiap.usuario.api</apiPackage>
+							<modelPackage>br.com.fiap.usuario.model</modelPackage>
+							<modelNameSuffix>DTO</modelNameSuffix>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<jakarta>true</jakarta>
+								<java8>true</java8>
+							</configOptions>
+						</configuration>
+					</execution>-->
 				</executions>
 			</plugin>
 			<plugin>
