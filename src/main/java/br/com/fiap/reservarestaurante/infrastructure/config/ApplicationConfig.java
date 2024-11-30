@@ -29,6 +29,14 @@ import br.com.fiap.reservarestaurante.application.usecases.restaurente.retrive.l
 import br.com.fiap.reservarestaurante.application.usecases.restaurente.retrive.list.RestauranteListUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.restaurente.update.DefaultRestauranteUpdateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.restaurente.update.RestauranteUpdateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.delete.DefaultReservaDeleteUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.delete.ReservaDeleteUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.DefaultReservaGetByIdUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.ReservaGetByIdUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.DefaultReservaListUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.ReservaListUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.update.DefaultReservaUpdateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.update.ReservaUpdateUseCase;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.AvaliacaoJPARepository;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.ReservaJPARepository;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.RestauranteJPARepository;
@@ -96,6 +104,26 @@ public class ApplicationConfig {
   @Bean
   public ReservaCreateUseCase reservaCreateUseCase(final ReservaRepository reservaRepository) {
     return new DefaultReservaCreateUseCase(reservaRepository);
+  }
+
+  @Bean
+  public ReservaDeleteUseCase reservaDeleteUseCase(final ReservaRepository reservaRepository) {
+    return new DefaultReservaDeleteUseCase(reservaRepository);
+  }
+
+  @Bean
+  public ReservaListUseCase reservaListUseCase(final ReservaRepository reservaRepository) {
+    return new DefaultReservaListUseCase(reservaRepository);
+  }
+
+  @Bean
+  public ReservaGetByIdUseCase reservaGetByIdUseCase(final ReservaRepository reservaRepository) {
+    return new DefaultReservaGetByIdUseCase(reservaRepository);
+  }
+
+  @Bean
+  public ReservaUpdateUseCase reservaUpdateUseCase(final ReservaRepository reservaRepository) {
+    return new DefaultReservaUpdateUseCase(reservaRepository);
   }
 
   @Bean

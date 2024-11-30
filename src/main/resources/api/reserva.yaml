@@ -30,14 +30,12 @@ paths:
           required: true
           schema:
             type: string
-            format: uuid
         - name: usuarioId
           in: query
           description: ID do usuário
           required: true
           schema:
             type: string
-            format: uuid
       requestBody:
         description: Cria uma nova reserva no restaurante
         content:
@@ -79,23 +77,6 @@ paths:
             type: integer
             default: 10
             example: 10
-        - name: status
-          in: query
-          description: >
-            Status da reserva:
-              * `PENDENTE` - Reservas que ainda estão pendentes
-              * `CONFIRMADA` - Reservas que foram confirmadas
-              * `CANCELADA` - Reservas que foram canceladas
-              * `FINALIZADA` - Reservas finalizadas
-          required: false
-          schema:
-            type: string
-            enum:
-              - PENDENTE
-              - CONFIRMADA
-              - CANCELADA
-              - FINALIZADA
-            default: PENDENTE
       responses:
         '200':
           description: Operação bem-sucedida
@@ -118,7 +99,6 @@ paths:
           required: true
           schema:
             type: string
-            format: uuid
       responses:
         '200':
           description: Operação bem-sucedida
@@ -143,7 +123,6 @@ paths:
           required: true
           schema:
             type: string
-            format: uuid
       requestBody:
         description: Atualiza uma reserva existente em um restaurante
         content:
@@ -177,7 +156,6 @@ paths:
           required: true
           schema:
             type: string
-            format: uuid
       responses:
         "204":
           description: Reserva deletada
@@ -271,16 +249,6 @@ components:
     AtualizaReserva:
       type: object
       properties:
-        dataHorarioReserva:
-          type: string
-          format: date-time
-          description: Data e hora da reserva
-          example: 2024-11-23T15:00:00Z
-        comentario:
-          type: string
-          maxLength: 500
-          description: Comentário sobre a reserva
-          example: Um comentário atualizado sobre a reserva
         status:
           type: string
           description: Status atual da reserva
