@@ -26,14 +26,13 @@ import org.mapstruct.factory.Mappers;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.UUID;
 
 @Mapper
 public interface ReservaMapper {
     ReservaMapper INSTANCE = Mappers.getMapper(ReservaMapper.class);
 
     @Mapping(target = "dataHorarioReserva", expression = "java(dto.getDataHorarioReserva().toInstant())")
-    ReservaCreateUseCaseInput fromDTO(UUID restauranteId, UUID usuarioId, CriaReservaDTO dto);
+    ReservaCreateUseCaseInput fromDTO(String restauranteId, String usuarioId, CriaReservaDTO dto);
 
     @Mapping(target = "id", expression = "java(java.util.UUID.fromString(output.id().toString()))")
     @Mapping(target = "dataHorarioReserva", expression = "java(mapOffsetDateTime(output.dataHorarioReserva()))")

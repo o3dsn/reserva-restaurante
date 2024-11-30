@@ -12,12 +12,10 @@ import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.R
 import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.ReservaListUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.reserva.update.ReservaUpdateUseCase;
 import br.com.fiap.reservarestaurante.infrastructure.mappers.ReservaMapper;
+import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.net.URI;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,8 +29,8 @@ public class ReservaController implements ReservasApi {
 
     @Override
     public ResponseEntity<ReservaDTO> cadastrarReserva(
-            UUID restauranteId,
-            UUID usuarioId,
+            String restauranteId,
+            String usuarioId,
             CriaReservaDTO body) {
         final var useCaseInput = reservaMapper.fromDTO(restauranteId, usuarioId, body);
         final var useCaseOutput = reservaCreateUseCase.execute(useCaseInput);
