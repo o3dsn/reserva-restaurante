@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: Swagger Reserva Restaurante - Avaliações
+  description: |-
+    Api para cadastrar avaliações dos Restaurantes reservados - FIAP Fase 3 Tech Challenge
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://localhost:8080
+    description: Local server
+
+tags:
+  - name: Usuario
+    description: Todo sobre avaliações dos restaurantes
+
+paths:
+  /usuarios/test:
+    post:
+      tags:
+        - Usuario
+      summary: Adiciona uma nova avaliação
+      description: Adiciona uma nova avaliação ao restaurante pelo seu ID da reserva e usuario
+      operationId: cadastrarAvaliacao
+      parameters:
+        - name: reservaId
+          in: query
+          description: ID da reserva
+          required: true
+          schema:
+            type: string
+        - name: usuarioId
+          in: query
+          description: ID do usuário
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operação bem-sucedida
+        '400':
+          description: Entrada inválida
+        '422':
+          description: Exceção de validação
+    get:
+      tags:
+        - usuarioTeste
+      summary: Encontra todas as avaliações
+      description: Retorna todas as avaliações
+      operationId: buscarAvaliacoes
+      parameters:
+        - name: pagina
+          in: query
+          description: Número da página
+          required: false
+          schema:
+            type: integer
+            default: 0
+            example: 1
+        - name: porPagina
+          in: query
+          description: Número de itens por página
+          required: false
+          schema:
+            type: integer
+            default: 10
+            example: 10
+        - name: ativo
+          in: query
+          description: >
+            Status da avaliação:
+              * `true` - Todas avaliações ativas
+              * `false` - Todas avaliações que foram deletas
+          required: false
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Operação bem-sucedida
