@@ -130,8 +130,7 @@ class AvaliacaoJPARepositoryTest {
 
     @Test
     void devePermitirBuscarNotaRestaurantePorIdRestaurante() {
-      var notaRestaurante =
-          new NotaRestaurante(AvaliacaoHelper.RESTAURANTE_ID, 2L, BigDecimal.valueOf(4.5));
+      var notaRestaurante = AvaliacaoHelper.gerarNotaRestaurante();
 
       when(avaliacaoJPARepository.buscarNotaRestaurante(any(String.class)))
           .thenReturn(Optional.of(notaRestaurante));

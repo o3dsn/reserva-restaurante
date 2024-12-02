@@ -460,18 +460,16 @@ class AvaliacaoControllerTest {
 
     @Test
     void devePermitirBuscarNotaRestaurantePorIdRestaurante() throws Exception {
-      var restauranteId = "62a5ae8e-4d86-4d26-926e-cc80f2b0816e";
-      var output =
-          new NotaRestauranteGetByIdUseCaseOutput(restauranteId, 2L, BigDecimal.valueOf(4.1));
+      var output = NotaRestauranteGetByIdUseCaseOutput.from(AvaliacaoHelper.gerarNotaRestaurante());
 
       when(notaRestauranteGetByIdUseCase.execute(any(String.class))).thenReturn(output);
 
       mockMvc
           .perform(
-              get("/avaliacoes/restaurantes/nota/{id}", restauranteId)
+              get("/avaliacoes/restaurantes/nota/{id}", AvaliacaoHelper.RESTAURANTE_ID)
                   .contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().isOk())
-          .andExpect(jsonPath("$.restauranteId").value(restauranteId))
+          .andExpect(jsonPath("$.restauranteId").value(AvaliacaoHelper.RESTAURANTE_ID))
           .andExpect(jsonPath("$.avaliacoes").value(output.avaliacoes()))
           .andExpect(jsonPath("$.nota").value(output.nota()));
 

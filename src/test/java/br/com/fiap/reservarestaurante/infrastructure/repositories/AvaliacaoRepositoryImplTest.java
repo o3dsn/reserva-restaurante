@@ -172,8 +172,7 @@ class AvaliacaoRepositoryImplTest {
 
     @Test
     void devePermitirBuscarNotaRestaurantePorIdRestaurante() {
-      var notaRestaurante =
-          new NotaRestaurante(AvaliacaoHelper.RESTAURANTE_ID, 3L, BigDecimal.valueOf(4.1));
+      var notaRestaurante = AvaliacaoHelper.gerarNotaRestaurante();
 
       when(avaliacaoJPARepository.buscarNotaRestaurante(any(String.class)))
           .thenReturn(Optional.of(notaRestaurante));

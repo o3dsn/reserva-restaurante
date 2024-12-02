@@ -6,7 +6,13 @@ import br.com.fiap.avaliacao.model.AtualizaAvaliacaoDTO;
 import br.com.fiap.avaliacao.model.CriaAvaliacaoDTO;
 import br.com.fiap.reservarestaurante.application.domain.avaliacao.Avaliacao;
 import br.com.fiap.reservarestaurante.application.domain.avaliacao.AvaliacaoId;
+import br.com.fiap.reservarestaurante.application.domain.avaliacao.NotaRestaurante;
+import br.com.fiap.reservarestaurante.application.domain.paginacao.Page;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.create.AvaliacaoCreateUseCaseInput;
+import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.list.AvaliacaoListUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.list.AvaliacaoListUseCaseInput;
+import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.list.byidrestaurant.AvaliacaoListByIdRestauranteUseCaseInput;
+import br.com.fiap.reservarestaurante.application.usecases.avaliacao.update.AvaliacaoUpdateUseCaseInput;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.AvaliacaoJPAEntity;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -27,17 +33,25 @@ public final class AvaliacaoHelper {
     return Avaliacao.nova(RESERVA_ID, USUARIO_ID, COMENTARIO, NOTA);
   }
 
-  public static Avaliacao gerarAvaliacao(String id) {
+  public static Avaliacao gerarAvaliacaoExcluida(String id) {
+    return gerar(id, false, "2024-12-05T10:15:30.00Z");
+  }
+
+  public static Avaliacao gerar(String id, boolean ativo, String exclusao) {
     return new Avaliacao(
-        AvaliacaoId.from(id),
-        RESERVA_ID,
-        USUARIO_ID,
-        Instant.parse("2024-12-03T10:15:30.00Z"),
-        null,
-        null,
-        true,
-        COMENTARIO,
-        NOTA);
+            AvaliacaoId.from(id),
+            RESERVA_ID,
+            USUARIO_ID,
+            Instant.parse("2024-12-03T10:15:30.00Z"),
+            null,
+            ativo ? null : Instant.parse(exclusao),
+            ativo,
+            COMENTARIO,
+            NOTA);
+  }
+
+  public static Avaliacao gerarAvaliacao(String id) {
+    return gerar(id, true, null);
   }
 
   public static Avaliacao gerarAvaliacaoAlterada(String id) {
@@ -74,8 +88,24 @@ public final class AvaliacaoHelper {
         .nota(BigDecimal.valueOf(3.25));
   }
 
+  public static NotaRestaurante gerarNotaRestaurante() {
+    return new NotaRestaurante(AvaliacaoHelper.RESTAURANTE_ID, 3L, BigDecimal.valueOf(4.1));
+  }
+
   public static AvaliacaoCreateUseCaseInput gerarAvaliacaoCreateUseCaseInput() {
     return new AvaliacaoCreateUseCaseInput(RESERVA_ID, USUARIO_ID, COMENTARIO, NOTA);
+  }
+
+  public static AvaliacaoUpdateUseCaseInput gerarAvaliacaoUpdateUseCaseInput(String id) {
+    return new AvaliacaoUpdateUseCaseInput(id, COMENTARIO + " Atualizado", NOTA);
+  }
+
+  public static AvaliacaoListUseCaseInput gerarAvaliacaoListUseCaseInput() {
+    return new AvaliacaoListUseCaseInput(new Page(0, 10), true);
+  }
+
+  public static AvaliacaoListByIdRestauranteUseCaseInput gerarAvaliacaoListByIdRestauranteUseCaseInput() {
+    return new AvaliacaoListByIdRestauranteUseCaseInput(new Page(0, 10), RESTAURANTE_ID);
   }
 
   public static void validar(Avaliacao avaliacaoArmazenada, Avaliacao avaliacao) {

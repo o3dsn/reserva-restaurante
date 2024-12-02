@@ -140,6 +140,19 @@ class AvaliacaoRepositoryImplIT {
     }
 
     @Test
+    void devePermitirBuscarAvaliacoesPorIdRestaurante_QueNaoExiste() {
+      var page = new Page(0, 10);
+      var restauranteId = "1f740354-6432-49ec-b1f8-c773eaf3f1f7";
+
+      var resultadoPaginado = avaliacaoRepository.buscarPorIdRestaurante(page, restauranteId);
+
+      assertThat(resultadoPaginado).extracting(Pagination::currentPage).isEqualTo(0);
+      assertThat(resultadoPaginado).extracting(Pagination::perPage).isEqualTo(10);
+      assertThat(resultadoPaginado).extracting(Pagination::total).isEqualTo(0L);
+      assertThat(resultadoPaginado.items()).hasSize(0);
+    }
+
+    @Test
     void devePermitirBuscarNotaRestaurantePorIdRestaurante() {
       var restauranteId = "177d17ed-9b8b-480f-becf-bb57c896f0f6";
 

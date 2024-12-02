@@ -25,7 +25,7 @@ import org.springframework.http.HttpStatus;
 class DefaultAvaliacaoCreateUseCaseTest {
 
   AutoCloseable openMocks;
-  private DefaultAvaliacaoCreateUseCase avaliacaoCreateUseCase;
+  private AvaliacaoCreateUseCase avaliacaoCreateUseCase;
   @Mock private AvaliacaoRepository avaliacaoRepository;
   @Mock private ReservaGetByIdUseCase reservaGetByIdUseCase;
 
