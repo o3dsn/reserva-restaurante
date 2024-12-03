@@ -14,7 +14,7 @@ public interface UsuarioRepository {
 
     Pagination<Usuario> buscarTudo(Page page);
 
-    Optional<Usuario> buscarPorId(UsuarioId id);
+    Optional<Usuario> buscarPorId(String id);
 
     void deletarRestaurante(Usuario usuario);
 
