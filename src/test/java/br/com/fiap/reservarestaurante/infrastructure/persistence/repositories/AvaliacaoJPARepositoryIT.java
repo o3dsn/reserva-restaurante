@@ -24,7 +24,7 @@ class AvaliacaoJPARepositoryIT {
 
   @Autowired
   public AvaliacaoJPARepositoryIT(AvaliacaoJPARepository avaliacaoJPARepository) {
-      this.avaliacaoJPARepository = avaliacaoJPARepository;
+    this.avaliacaoJPARepository = avaliacaoJPARepository;
   }
 
   @Test

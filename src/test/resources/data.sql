@@ -19,11 +19,15 @@ INSERT INTO reservas (
 )
 VALUES
     ('093bff48-6e42-4939-99d9-959f61b41fdd','177d17ed-9b8b-480f-becf-bb57c896f0f6', 'afaa347c-b698-4e51-b71a-d861c5f480ba', 'FINALIZADA', '',
-    '2024-01-02T14:00:00.000Z', '2023-12-26T13:00:00.000Z', null),
+    '2024-01-02T14:00:00.000Z', '2023-12-26T13:00:00.000Z', '2024-01-02T15:00:00.000Z'),
     ('bb0bd99f-9ae0-4901-b484-8438fb72308d','177d17ed-9b8b-480f-becf-bb57c896f0f6', 'afaa347c-b698-4e51-b71a-d861c5f480ba', 'FINALIZADA', '',
     '2024-01-15T14:00:00.000Z', '2024-01-10T13:00:00.000Z', null),
     ('d750f2ba-568b-4d39-98fa-c525736be003','177d17ed-9b8b-480f-becf-bb57c896f0f6', 'afaa347c-b698-4e51-b71a-d861c5f480ba', 'FINALIZADA', '',
-    '2024-01-20T14:00:00.000Z', '2024-01-20T13:00:00.000Z', null);
+    '2024-01-20T14:00:00.000Z', '2024-01-20T13:00:00.000Z', null),
+    ('828a24a8-4e99-4c68-a476-3c9397bb4e97','177d17ed-9b8b-480f-becf-bb57c896f0f6', 'afaa347c-b698-4e51-b71a-d861c5f480ba', 'CONFIRMADA', 'reserva para ser avaliada pelo AvaliacaoControllerIT',
+    '2024-01-20T14:00:00.000Z', '2024-01-20T13:00:00.000Z', '2024-01-20T15:00:00.000Z'),
+    ('81d46912-62bf-4c38-b638-3f569478e369','177d17ed-9b8b-480f-becf-bb57c896f0f6', 'afaa347c-b698-4e51-b71a-d861c5f480ba', 'CONFIRMADA', 'reserva para lançar excecao AvaliacaoControllerIT',
+        '2024-01-20T14:00:00.000Z', '2024-01-20T13:00:00.000Z', null);
 
 INSERT INTO avaliacoes(
     id, reserva_id, usuario_id,

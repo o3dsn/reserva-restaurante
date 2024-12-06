@@ -4,7 +4,6 @@ import static br.com.fiap.reservarestaurante.utils.JsonUtil.toJson;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,7 +29,6 @@ import br.com.fiap.reservarestaurante.application.usecases.avaliacao.update.Aval
 import br.com.fiap.reservarestaurante.utils.AvaliacaoHelper;
 import com.callibrity.logging.test.LogTracker;
 import com.callibrity.logging.test.LogTrackerStub;
-import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -385,7 +383,6 @@ class AvaliacaoControllerTest {
       mockMvc
           .perform(get("/avaliacoes").contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().isOk())
-          .andDo(print())
           .andExpect(jsonPath("$.pagina").value(pagination.currentPage()))
           .andExpect(jsonPath("$.porPagina").value(pagination.perPage()))
           .andExpect(jsonPath("$.total").value(pagination.total()))
