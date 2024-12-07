@@ -17,12 +17,12 @@ import java.util.Optional;
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
-    public Usuario criar(Usuario restaurante) {
+    public Usuario criar(Usuario usuario) {
         return null;
     }
 
     @Override
-    public Usuario atualizar(Usuario restaurante) {
+    public Usuario atualizar(Usuario usuario) {
         return null;
     }
 
@@ -32,7 +32,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
-    public Optional<Usuario> buscarPorId(UsuarioId id) {
+    public Optional<Usuario> buscarPorId(String id) {
         return Optional.empty();
     }
 

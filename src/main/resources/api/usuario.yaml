@@ -13,29 +13,22 @@ servers:
 
 tags:
   - name: Usuario
-    description: Todo sobre avaliações dos restaurantes
+    description: Tudo sobre usuários
 
 paths:
-  /usuarios/test:
+  /usuario/novo:
     post:
       tags:
         - Usuario
-      summary: Adiciona uma nova avaliação
-      description: Adiciona uma nova avaliação ao restaurante pelo seu ID da reserva e usuario
-      operationId: cadastrarAvaliacao
-      parameters:
-        - name: reservaId
-          in: query
-          description: ID da reserva
-          required: true
-          schema:
-            type: string
-        - name: usuarioId
-          in: query
-          description: ID do usuário
-          required: true
-          schema:
-            type: string
+      summary: Adiciona um novo usuário
+      description: Adiciona um novo usuário
+      operationId: cadastrarUsuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CadastrarUsuario'
       responses:
         '200':
           description: Operação bem-sucedida
@@ -43,39 +36,30 @@ paths:
           description: Entrada inválida
         '422':
           description: Exceção de validação
-    get:
-      tags:
-        - usuarioTeste
-      summary: Encontra todas as avaliações
-      description: Retorna todas as avaliações
-      operationId: buscarAvaliacoes
-      parameters:
-        - name: pagina
-          in: query
-          description: Número da página
-          required: false
-          schema:
-            type: integer
-            default: 0
-            example: 1
-        - name: porPagina
-          in: query
-          description: Número de itens por página
-          required: false
-          schema:
-            type: integer
-            default: 10
-            example: 10
-        - name: ativo
-          in: query
-          description: >
-            Status da avaliação:
-              * `true` - Todas avaliações ativas
-              * `false` - Todas avaliações que foram deletas
-          required: false
-          schema:
-            type: boolean
-            default: true
-      responses:
-        '200':
-          description: Operação bem-sucedida
+
+components:
+    schemas:
+        Usuario:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: ID do usuário.
+              example: 123e4567-e89b-12d3-a456-426614174000
+            nome:
+              type: string
+              example: João
+            email:
+              type: string
+              example:
+
+        CadastrarUsuario:
+          type: object
+          properties:
+              nome:
+                type: string
+                example: João
+              email:
+                type: string
+                example:

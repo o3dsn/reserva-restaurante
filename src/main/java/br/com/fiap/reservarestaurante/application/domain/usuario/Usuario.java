@@ -2,10 +2,13 @@ package br.com.fiap.reservarestaurante.application.domain.usuario;
 
 import br.com.fiap.reservarestaurante.application.domain.avaliacao.AvaliacaoId;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+
 
 @Getter
 @AllArgsConstructor
+@Builder
 public class Usuario {
 
     private UsuarioId id;

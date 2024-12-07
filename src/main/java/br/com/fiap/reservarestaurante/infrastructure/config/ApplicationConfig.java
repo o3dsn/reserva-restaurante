@@ -3,6 +3,7 @@ package br.com.fiap.reservarestaurante.infrastructure.config;
 import br.com.fiap.reservarestaurante.application.repositories.AvaliacaoRepository;
 import br.com.fiap.reservarestaurante.application.repositories.ReservaRepository;
 import br.com.fiap.reservarestaurante.application.repositories.RestauranteRepository;
+import br.com.fiap.reservarestaurante.application.repositories.UsuarioRepository;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.create.AvaliacaoCreateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.create.DefaultAvaliacaoCreateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.delete.AvaliacaoDeleteUseCase;
@@ -37,6 +38,8 @@ import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.
 import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.ReservaListUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.reserva.update.DefaultReservaUpdateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.reserva.update.ReservaUpdateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.usuario.create.DefaultUsuarioCreateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.usuario.create.UsuarioCreateUseCase;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.AvaliacaoJPARepository;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.ReservaJPARepository;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.RestauranteJPARepository;
@@ -161,4 +164,12 @@ public class ApplicationConfig {
       final RestauranteRepository restauranteRepository) {
     return new DefaultRestauranteDeleteUseCase(restauranteRepository);
   }
+
+  @Bean
+  public UsuarioCreateUseCase usuarioCreateUseCase(
+      final UsuarioRepository usuarioRepository) {
+    return new DefaultUsuarioCreateUseCase(usuarioRepository);
+  }
+
+
 }
