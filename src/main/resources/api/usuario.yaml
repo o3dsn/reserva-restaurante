@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: Swagger Reserva Restaurante - Avaliações
+  description: |-
+    Api para cadastrar avaliações dos Restaurantes reservados - FIAP Fase 3 Tech Challenge
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://localhost:8080
+    description: Local server
+
+tags:
+  - name: Usuario
+    description: Tudo sobre usuários
+
+paths:
+  /usuario/novo:
+    post:
+      tags:
+        - Usuario
+      summary: Adiciona um novo usuário
+      description: Adiciona um novo usuário
+      operationId: cadastrarUsuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CadastrarUsuario'
+      responses:
+        '200':
+          description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '400':
+          description: Entrada inválida
+        '422':
+          description: Exceção de validação
+
+components:
+    schemas:
+        Usuario:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: ID do usuário.
+              example: 123e4567-e89b-12d3-a456-426614174000
+            nome:
+              type: string
+              example: João
+            email:
+              type: string
+              example:
+
+        CadastrarUsuario:
+          type: object
+          properties:
+              nome:
+                type: string
+                example: João
+              email:
+                type: string
+                example: teste@teste.com
+              senha:
+                type: string
+                example: 123456
