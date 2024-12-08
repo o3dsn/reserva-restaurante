@@ -16,22 +16,25 @@ public class Usuario {
     private String email;
     private String senha;
 
-    public static Usuario novo(String nome, String email, String senha) {
-      return new Usuario(
-        null,
+    public static Usuario create(String nome, String email, String senha) {
+
+       final var usuarioid = UsuarioId.generate();
+
+       return new Usuario(
+        usuarioid,
         nome,
         email,
         senha);
 
     }
 
-    public void atualizar(String nome, String email, String senha) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-    }
-
-    public void excluir() {
-        this.id = null;
-    }
+//    public void atualizar(String nome, String email, String senha) {
+//        this.nome = nome;
+//        this.email = email;
+//        this.senha = senha;
+//    }
+//
+//    public void excluir() {
+//        this.id = null;
+//    }
 }

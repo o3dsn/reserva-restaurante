@@ -1,8 +1,10 @@
 package br.com.fiap.reservarestaurante.infrastructure.mappers;
 
+import br.com.fiap.reservarestaurante.application.domain.usuario.Usuario;
 import br.com.fiap.reservarestaurante.application.domain.usuario.UsuarioId;
 import br.com.fiap.reservarestaurante.application.usecases.usuario.create.UsuarioCreateUseCaseInput;
 import br.com.fiap.reservarestaurante.application.usecases.usuario.create.UsuarioCreateUseCaseOutput;
+import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.UsuarioJPAEntity;
 import br.com.fiap.usuario.model.CadastrarUsuarioDTO;
 import br.com.fiap.usuario.model.UsuarioDTO;
 import org.mapstruct.Mapper;
@@ -19,4 +21,7 @@ public interface UsuarioMapper {
     UsuarioDTO toDTO(UsuarioCreateUseCaseOutput output);
 
     UsuarioCreateUseCaseInput fromDTO(CadastrarUsuarioDTO dto);
+
+    @Mapping(target = "id", expression = "java(new UsuarioId(entity.getId()))")
+    Usuario toObject(UsuarioJPAEntity entity);
 }

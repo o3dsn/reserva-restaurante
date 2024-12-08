@@ -2,9 +2,12 @@ package br.com.fiap.reservarestaurante.infrastructure.repositories;
 
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Page;
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Pagination;
+import br.com.fiap.reservarestaurante.application.domain.restaurante.Restaurante;
 import br.com.fiap.reservarestaurante.application.domain.usuario.Usuario;
-import br.com.fiap.reservarestaurante.application.domain.usuario.UsuarioId;
 import br.com.fiap.reservarestaurante.application.repositories.UsuarioRepository;
+import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.RestauranteJPAEntity;
+import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.UsuarioJPAEntity;
+import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.UsuarioJPARepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +19,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
+    private final UsuarioJPARepository usuarioJPARepository;
+
     @Override
     public Usuario criar(Usuario usuario) {
-        return null;
+        return save(usuario);
     }
 
     @Override
@@ -26,18 +31,8 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         return null;
     }
 
-    @Override
-    public Pagination<Usuario> buscarTudo(Page page) {
-        return null;
+    private Usuario save(final Usuario usuario) {
+        return usuarioJPARepository.save(UsuarioJPAEntity.of(usuario)).toUsuario();
     }
 
-    @Override
-    public Optional<Usuario> buscarPorId(String id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public void deletarRestaurante(Usuario usuario) {
-
-    }
 }

@@ -32,6 +32,10 @@ paths:
       responses:
         '200':
           description: Operação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
         '400':
           description: Entrada inválida
         '422':
@@ -62,4 +66,7 @@ components:
                 example: João
               email:
                 type: string
-                example:
+                example: teste@teste.com
+              senha:
+                type: string
+                example: 123456
