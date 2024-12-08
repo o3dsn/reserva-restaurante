@@ -14,6 +14,8 @@ import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.R
 import br.com.fiap.reservarestaurante.utils.AvaliacaoHelper;
 import java.time.Instant;
 import java.util.Optional;
+
+import br.com.fiap.reservarestaurante.utils.ReservaHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,35 +44,12 @@ class DefaultAvaliacaoCreateUseCaseTest {
     openMocks.close();
   }
 
-  private ReservaGetByIdUseCaseOutput gerar(ReservaDTO.StatusEnum status, String dataAlteracao) {
-    return new ReservaGetByIdUseCaseOutput(
-        ReservaId.from("1ec7e452-1876-451c-b089-726f2f9ef1ba"),
-        AvaliacaoHelper.RESTAURANTE_ID,
-        AvaliacaoHelper.USUARIO_ID,
-        status,
-        null,
-        Instant.parse("2024-12-02T10:15:30.00Z"),
-        Instant.parse("2024-12-01T06:10:30.100Z"),
-        Instant.parse(dataAlteracao));
-  }
-
-  private ReservaGetByIdUseCaseOutput gerarReservaFinalizada() {
-    return gerar(ReservaDTO.StatusEnum.FINALIZADA, this.agora.toString());
-  }
-
-  private ReservaGetByIdUseCaseOutput gerarReservaFinalizadaInvalida() {
-    return gerar(ReservaDTO.StatusEnum.FINALIZADA, "2021-12-01T00:00:00.100Z");
-  }
-
-  private ReservaGetByIdUseCaseOutput gerarReservaConfirmada() {
-    return gerar(ReservaDTO.StatusEnum.CONFIRMADA, this.agora.toString());
-  }
 
   @Test
   void devePermitirCriarAvaliacao() {
     var input = AvaliacaoHelper.gerarAvaliacaoCreateUseCaseInput();
     var avaliacao = AvaliacaoHelper.gerarAvaliacao("0a3fc31d-ec07-43a7-a637-68f32172978b");
-    var reserva = gerarReservaFinalizada();
+    var reserva = ReservaHelper.gerarReservaFinalizada();
 
     when(reservaGetByIdUseCase.execute(any(String.class))).thenReturn(reserva);
     when(avaliacaoRepository.buscarPorIdReserva(any(String.class))).thenReturn(Optional.empty());
@@ -114,7 +93,7 @@ class DefaultAvaliacaoCreateUseCaseTest {
   @Test
   void deveGerarExcecao_QuandoCriarAvaliacao_ComReservaNaoFinalizada() {
     var input = AvaliacaoHelper.gerarAvaliacaoCreateUseCaseInput();
-    var reserva = gerarReservaConfirmada();
+    var reserva = ReservaHelper.gerarReservaConfirmada();
 
     when(reservaGetByIdUseCase.execute(any(String.class))).thenReturn(reserva);
 
@@ -152,7 +131,7 @@ class DefaultAvaliacaoCreateUseCaseTest {
   @Test
   void deveGerarExcecao_QuandoCriarAvaliacao_ComTempoExcedido() {
     var input = AvaliacaoHelper.gerarAvaliacaoCreateUseCaseInput();
-    var reserva = gerarReservaFinalizadaInvalida();
+    var reserva = ReservaHelper.gerarReservaFinalizadaInvalida();
 
     when(reservaGetByIdUseCase.execute(any(String.class))).thenReturn(reserva);
 
@@ -171,7 +150,7 @@ class DefaultAvaliacaoCreateUseCaseTest {
   void deveGerarExcecao_QuandoCriarAvaliacao_ComAvaliacaoJaRegistrada() {
     var input = AvaliacaoHelper.gerarAvaliacaoCreateUseCaseInput();
     var avaliacao = AvaliacaoHelper.gerarAvaliacao("0a3fc31d-ec07-43a7-a637-68f32172978b");
-    var reserva = gerarReservaFinalizada();
+    var reserva = ReservaHelper.gerarReservaFinalizada();
 
     when(reservaGetByIdUseCase.execute(any(String.class))).thenReturn(reserva);
     when(avaliacaoRepository.buscarPorIdReserva(any(String.class)))
