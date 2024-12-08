@@ -178,7 +178,7 @@
         <dependency>
             <groupId>io.gatling</groupId>
             <artifactId>gatling-app</artifactId>
-            <version>3.9.5</version>
+            <version>3.13.1</version>
         </dependency>
         <dependency>
             <groupId>io.gatling.highcharts</groupId>
@@ -437,6 +437,21 @@
 							</includes>
 							<excludes combine.self="override">
 							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>performance-test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>io.gatling</groupId>
+						<artifactId>gatling-maven-plugin</artifactId>
+						<version>4.11.0</version>
+						<configuration>
+							<simulationClass>br.com.fiap.reservarestaurante.performance.PerformanceSimulation</simulationClass>
 						</configuration>
 					</plugin>
 				</plugins>

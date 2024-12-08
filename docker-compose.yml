@@ -1,0 +1,20 @@
+services:
+  myapp:
+    image: background:latest
+    container_name: reserva-restaurante-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SPRING_PROFILE: ${SPRING_PROFILE}
+    environment:
+      SPRING_PROFILE: ${SPRING_PROFILE}
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    networks:
+      - minha-network
+networks:
+  minha-network:
+    driver: bridge
