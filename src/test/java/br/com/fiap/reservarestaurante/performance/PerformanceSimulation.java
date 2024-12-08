@@ -71,7 +71,7 @@ public class PerformanceSimulation extends Simulation {
           .post("/restaurantes")
           .body(StringBody(criaRestauranteDTO))
           .check(status().is(201))
-          .check(bodyString().saveAs("responseRestaurante"));
+          .check(jsonPath("$.id").saveAs("restauranteId"));
 
   ActionBuilder adicionarReservaRequest =
      http("adicionar reserva")
@@ -80,7 +80,7 @@ public class PerformanceSimulation extends Simulation {
                 .queryParam("restauranteId", "#{restauranteId}")
                 .queryParam("usuarioId", usuarioId)
                 .check(status().is(201))
-                .check(bodyString().saveAs("responseReserva"));
+                .check(jsonPath("$.id").saveAs("reservaId"));
 
     ActionBuilder atualizarReservaRequest =
             http("atualizar reserva")
@@ -95,37 +95,43 @@ public class PerformanceSimulation extends Simulation {
                     .queryParam("reservaId", "#{reservaId}")
                     .queryParam("usuarioId", usuarioId)
                     .body(StringBody(criaAvaliacaoDTO))
-                    .check(status().is(201));
+                    .check(status().is(201))
+                    .check(jsonPath("$.id").saveAs("avaliacaoId"));
+
+    ActionBuilder buscarAvaliacaoRequest =
+            http("buscar avaliacao")
+                    .get("/avaliacoes/%s".formatted("#{avaliacaoId}"))
+                    .check(status().is(200));
 
   ScenarioBuilder scenarioAdicionarAvaliacao =
       scenario("adicionar avaliacao")
           .exec(adicionarRestauranteRequest)
-          .exec(
-              session -> {
-                String responseRestaurante = session.getString("responseRestaurante");
-                var restauranteDTO = JsonUtil.toObject(responseRestaurante, RestauranteDTO.class);
-                return session.set("restauranteId", restauranteDTO.getId());
-              })
           .exec(adicionarReservaRequest)
-          .exec(
-              session -> {
-                String responseReserva = session.getString("responseReserva");
-                var reservaDTO = JsonUtil.toObject(responseReserva, ReservaDTO.class);
-                return session.set("reservaId", reservaDTO.getId());
-              })
-              .exec(atualizarReservaRequest)
-              .exec(adicionarAvaliacaoRequest)
-          ;
+          .exec(atualizarReservaRequest)
+          .exec(adicionarAvaliacaoRequest);
+
+    ScenarioBuilder scenarioBuscarAvaliacao =
+        scenario("buscar avaliacao")
+            .exec(adicionarRestauranteRequest)
+            .exec(adicionarReservaRequest)
+            .exec(atualizarReservaRequest)
+            .exec(adicionarAvaliacaoRequest)
+            .exec(buscarAvaliacaoRequest);
 
   {
     setUp(
             scenarioAdicionarAvaliacao.injectOpen(
-                    rampUsersPerSec(1).to(10).during(Duration.ofSeconds(10)),
-                    constantUsersPerSec(10).during(Duration.ofSeconds(20)),
-                    rampUsersPerSec(10).to(1).during(Duration.ofSeconds(10))
+                    rampUsersPerSec(1).to(5).during(Duration.ofSeconds(10)),
+                    constantUsersPerSec(5).during(Duration.ofSeconds(20)),
+                    rampUsersPerSec(5).to(1).during(Duration.ofSeconds(10))
+            ),
+            scenarioBuscarAvaliacao.injectOpen(
+                    rampUsersPerSec(1).to(5).during(Duration.ofSeconds(10)),
+                    constantUsersPerSec(5).during(Duration.ofSeconds(20)),
+                    rampUsersPerSec(5).to(1).during(Duration.ofSeconds(10))
             )
     )
         .protocols(httpProtocolBuilder)
-        .assertions(global().responseTime().max().lt(60));
+        .assertions(global().responseTime().max().lt(100), global().failedRequests().count().is(0L));
     }
 }

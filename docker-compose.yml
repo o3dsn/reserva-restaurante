@@ -1,20 +1,35 @@
 services:
   myapp:
-    image: background:latest
-    container_name: reserva-restaurante-api
+    image: rr-api-${SPRING_PROFILE:default}
+    container_name: rr-${SPRING_PROFILE}-api
     build:
       context: .
       dockerfile: Dockerfile
       args:
         SPRING_PROFILE: ${SPRING_PROFILE}
     environment:
-      SPRING_PROFILE: ${SPRING_PROFILE}
-    env_file:
-      - .env
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE:-default}
     ports:
       - "8080:8080"
     networks:
       - minha-network
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    image: 'postgres:latest'
+    container_name: 'pg-docker'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=rr-performance
+    ports:
+      - "5433:5432"
+    networks:
+      - minha-network
+
 networks:
   minha-network:
     driver: bridge
