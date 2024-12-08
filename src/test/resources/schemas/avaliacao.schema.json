@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "required": [
+    "id",
+    "reservaId",
+    "usuarioId",
+    "criacao",
+    "alteracao",
+    "exclusao",
+    "ativo",
+    "comentario",
+    "nota"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "reservaId": {
+      "type": "string"
+    },
+    "usuarioId": {
+      "type": "string"
+    },
+    "criacao": {
+      "type": "string"
+    },
+    "alteracao": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "exclusao": {
+      "type": "null"
+    },
+    "ativo": {
+      "type": "boolean"
+    },
+    "comentario": {
+      "type": "string"
+    },
+    "nota": {
+      "type": "number"
+    }
+  }
+}
