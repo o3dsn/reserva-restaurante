@@ -1,5 +1,7 @@
 package br.com.fiap.reservarestaurante.utils;
 
+import br.com.fiap.reserva.model.AtualizaReservaDTO;
+import br.com.fiap.reserva.model.CriaReservaDTO;
 import br.com.fiap.reserva.model.ReservaDTO;
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Page;
 import br.com.fiap.reservarestaurante.application.domain.reserva.Reserva;
@@ -10,6 +12,7 @@ import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.
 import br.com.fiap.reservarestaurante.application.usecases.reserva.update.ReservaUpdateUseCaseInput;
 
 import java.time.Instant;
+import java.time.OffsetDateTime;
 
 public final class ReservaHelper {
     public static final String RESTAURANTE_ID = "2cc9c534-9900-44b7-a0d2-551d38d82953";
@@ -92,5 +95,13 @@ public final class ReservaHelper {
 
     public static ReservaGetByIdUseCaseOutput gerarReservaConfirmada() {
         return gerarReservaComStatus(ReservaDTO.StatusEnum.CONFIRMADA, Instant.now().toString());
+    }
+
+    public static CriaReservaDTO gerarCriaReservaDTO() {
+        return new CriaReservaDTO().comentario(COMENTARIO).dataHorarioReserva(OffsetDateTime.parse("2025-12-01T00:00:00.100Z"));
+    }
+
+    public static AtualizaReservaDTO gerarAtualizaReservaDTO() {
+        return new AtualizaReservaDTO().status(AtualizaReservaDTO.StatusEnum.CONFIRMADA);
     }
 }
