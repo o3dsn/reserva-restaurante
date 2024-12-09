@@ -53,7 +53,7 @@ Para rodar o projeto localmente, siga os passos abaixo:
 4. **Construa o projeto com Maven:**
 
     ```bash
-    mvn clean install
+    mvn clean install -U
     ```
 
 5. **Inicie a aplicação localmente:**
@@ -61,6 +61,25 @@ Para rodar o projeto localmente, siga os passos abaixo:
     ```bash
     mvn spring-boot:run
     ```
+## Testes
+- **Para executar os testes unitários:**
+
+   ```bash
+   mvn test
+   ```
+
+- **Para executar os testes integrados:**
+
+   ```bash
+   mvn test -P integration-text
+   ```
+
+- **Para executar os testes de sistema:**
+
+   ```bash
+   mvn test -P system-text
+   ```
+  
 ## Endpoints da API
 
 A API pode ser explorada e testada utilizando o Swagger. A documentação está disponível em:

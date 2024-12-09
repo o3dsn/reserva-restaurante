@@ -1,3 +1,5 @@
 package br.com.fiap.reservarestaurante.application.usecases.avaliacao.update;
 
-public record AvaliacaoUpdateUseCaseInput(String id, String comentario, float nota) {}
+import java.math.BigDecimal;
+
+public record AvaliacaoUpdateUseCaseInput(String id, String comentario, BigDecimal nota) {}

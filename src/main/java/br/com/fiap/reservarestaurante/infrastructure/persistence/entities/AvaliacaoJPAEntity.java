@@ -3,6 +3,7 @@ package br.com.fiap.reservarestaurante.infrastructure.persistence.entities;
 import br.com.fiap.reservarestaurante.application.domain.avaliacao.Avaliacao;
 import br.com.fiap.reservarestaurante.infrastructure.mappers.AvaliacaoMapper;
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,8 +48,8 @@ public class AvaliacaoJPAEntity {
   @Column(name = "comentario", nullable = false, length = 500)
   private String comentario;
 
-  @Column(name = "nota", nullable = false, precision = 1)
-  private double nota;
+  @Column(name = "nota", nullable = false, precision = 2, scale = 1)
+  private BigDecimal nota;
 
   public static AvaliacaoJPAEntity of(final Avaliacao avaliacao) {
     return new AvaliacaoJPAEntity(

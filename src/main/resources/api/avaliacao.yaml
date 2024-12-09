@@ -285,7 +285,6 @@ components:
           example: Um simples comentário sobre minha experiência no restaurante X
         nota:
           type: number
-          format: double
           description: A nota do restaurante
           example: 4.3
           minimum: 0.0
@@ -322,7 +321,6 @@ components:
           example: Um simples comentário sobre minha experiência no restaurante X
         nota:
           type: number
-          format: double
           description: A nota do restaurante
           example: 4.3
           minimum: 0.0
@@ -342,7 +340,6 @@ components:
           example: Um simples comentário sobre minha experiência no restaurante X
         nota:
           type: number
-          format: double
           description: A nota do restaurante
           example: 4.3
           minimum: 0.0
@@ -363,7 +360,6 @@ components:
           example: 10
         nota:
           type: number
-          format: double
           description: A nota do restaurante
           example: 4.3
           minimum: 0.0
