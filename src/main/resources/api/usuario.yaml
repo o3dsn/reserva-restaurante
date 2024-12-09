@@ -55,8 +55,9 @@ components:
               type: string
               example: João
             email:
+              pattern: "O e-mail fornecido não está no formato correto. Por favor, insira um e-mail válido, como exemplo@dominio.com."
               type: string
-              example:
+              example: joao@teste.com
 
         CadastrarUsuario:
           type: object
@@ -65,8 +66,9 @@ components:
                 type: string
                 example: João
               email:
+                pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
                 type: string
-                example: teste@teste.com
+                example: joao@teste.com
               senha:
                 type: string
                 example: 123456
