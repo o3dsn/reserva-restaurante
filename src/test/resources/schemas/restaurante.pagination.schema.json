@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "required": [
+    "pagina",
+    "porPagina",
+    "total",
+    "itens"
+  ],
+  "properties": {
+    "pagina": {
+      "type": "integer"
+    },
+    "porPagina": {
+      "type": "integer"
+    },
+    "total": {
+      "type": "integer"
+    },
+    "itens": {
+      "type": "array",
+      "itens": {
+        "type": "object",
+        "required": [
+          "id",
+          "nome",
+          "descricao",
+          "endereco",
+          "cidade",
+          "estado",
+          "bairro",
+          "faixaPreco",
+          "telefone",
+          "email",
+          "horarioAbertura",
+          "horarioFechamento"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "descricao": {
+            "type": "string"
+          },
+          "endereco": {
+            "type": "string"
+          },
+          "cidade": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string"
+          },
+          "bairro": {
+            "type": "string"
+          },
+          "tipoCozinhaId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "faixaPreco": {
+            "type": "string"
+          },
+          "telefone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "horarioAbertura": {
+            "type": "string"
+          },
+          "horarioFechamento": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

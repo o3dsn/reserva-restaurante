@@ -1,11 +1,20 @@
 INSERT INTO restaurantes (
     id, nome, descricao, endereco, cidade,
-    estado, bairro, tipo_cozinhha_id, faixa_preco, telefone,
+    estado, bairro, tipo_cozinha_id, faixa_preco, telefone,
     email, avaliacao_media, avaliacao_total, horario_abertura, horario_fechamento)
 VALUES
     ('177d17ed-9b8b-480f-becf-bb57c896f0f6','Restaurante 1', 'Restaurante 1 desc', 'Rua do restaurante', 'São Paulo',
     'SP', 'bairro', 'RUSTICA', '$$', '+55 11 1111-1111',
     'restaurante1@gmail.com', 0, 0, '06:00:00', '22:00:00');
+
+INSERT INTO restaurantes (
+    id, nome, descricao, endereco, cidade,
+    estado, bairro, tipo_cozinha_id, faixa_preco, telefone,
+    email, avaliacao_media, avaliacao_total, horario_abertura, horario_fechamento)
+VALUES
+    ('177d17ed-9b8b-480f-becf-bb57c896f0f7','Restaurante 1', 'Restaurante 1 desc', 'Rua do restaurante', 'São Paulo',
+     'SP', 'bairro', 'RUSTICA', '$$', '+55 11 1111-1111',
+     'restaurante1@gmail.com', 0, 0, '06:00:00', '22:00:00');
 
 INSERT INTO usuarios (
     id
