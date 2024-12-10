@@ -31,8 +31,8 @@ public class RestauranteJPAEntity {
 
   private String bairro;
 
-  @Column(name = "tipo_cozinhha_id", length = 36)
-  private String tipoCozinha;
+  @Column(name = "tipo_cozinha_id", length = 36)
+  private String tipoCozinhaId;
 
   private String faixaPreco;
 

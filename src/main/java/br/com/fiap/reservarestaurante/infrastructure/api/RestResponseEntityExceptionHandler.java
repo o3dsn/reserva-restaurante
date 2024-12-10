@@ -4,6 +4,8 @@ import br.com.fiap.reservarestaurante.application.exceptions.AvaliacaoException;
 import br.com.fiap.reservarestaurante.application.exceptions.DominioException;
 import java.util.HashMap;
 import java.util.Map;
+
+import br.com.fiap.reservarestaurante.application.exceptions.RestauranteException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -56,6 +58,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     this.limparErrors();
     errors.put(ex.getParameterName(), ex.getMessage());
     return ResponseEntity.badRequest().body(new DominioException(HttpStatus.BAD_REQUEST, errors));
+  }
+
+  @ExceptionHandler(RestauranteException.class)
+  public ResponseEntity<DominioException> restauranteException(RestauranteException ex) {
+    this.limparErrors();
+    errors.put("erro", ex.getMessage());
+    return ResponseEntity.status(ex.getStatus()).body(new DominioException(ex.getStatus(), errors));
   }
 
   private void limparErrors() {
