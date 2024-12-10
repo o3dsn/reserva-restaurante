@@ -36,5 +36,5 @@ docker-start: docker-down docker-rmi
 
 docker-down:
 	@echo Removendo container antigo...
-	docker-compose down || true
+	docker compose down || true
 
