@@ -1,6 +1,5 @@
 package br.com.fiap.reservarestaurante.application.usecases;
 
-public abstract class UnitUseCase<IN> {
-
-  public abstract void execute(IN input);
+public abstract class UnitUseCase<I> {
+  public abstract void execute(I input);
 }

@@ -14,7 +14,7 @@ import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.lis
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.list.DefaultAvaliacaoListUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.list.byidrestaurant.AvaliacaoListByIdRestauranteUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.list.byidrestaurant.DefaultAvaliacaoListByIdRestauranteUseCase;
-import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.nota.DefaultNotaRestauranteGetByUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.nota.DefaultNotaRestauranteGetByIdUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.nota.NotaRestauranteGetByIdUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.update.AvaliacaoUpdateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.update.DefaultAvaliacaoUpdateUseCase;
@@ -60,8 +60,8 @@ public class ApplicationConfig {
 
   @Bean
   public AvaliacaoCreateUseCase avaliacaoCreateUseCase(
-      final AvaliacaoRepository avaliacaoRepository) {
-    return new DefaultAvaliacaoCreateUseCase(avaliacaoRepository);
+      final AvaliacaoRepository avaliacaoRepository, final ReservaGetByIdUseCase reservaGetByIdUseCase) {
+    return new DefaultAvaliacaoCreateUseCase(avaliacaoRepository, reservaGetByIdUseCase);
   }
 
   @Bean
@@ -96,7 +96,7 @@ public class ApplicationConfig {
   @Bean
   public NotaRestauranteGetByIdUseCase notaRestauranteGetByIdUseCase(
       final AvaliacaoRepository avaliacaoRepository) {
-    return new DefaultNotaRestauranteGetByUseCase(avaliacaoRepository);
+    return new DefaultNotaRestauranteGetByIdUseCase(avaliacaoRepository);
   }
 
   @Bean

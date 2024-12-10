@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
-public class DefaultNotaRestauranteGetByUseCase extends NotaRestauranteGetByIdUseCase {
+public class DefaultNotaRestauranteGetByIdUseCase extends NotaRestauranteGetByIdUseCase {
 
   private final AvaliacaoRepository avaliacaoRepository;
 

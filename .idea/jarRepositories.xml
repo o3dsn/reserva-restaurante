@@ -2,9 +2,34 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="autbank-snapshots" />
+      <option name="name" value="autbank-snapshots" />
+      <option name="url" value="http://artifactory.de.autbank.net/artifactory/autbank-snapshots" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="mobilecloudautbank" />
+      <option name="name" value="mobilecloudautbank" />
+      <option name="url" value="http://artifactory.de.autbank.net/artifactory/mobilecloudautbank/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autbank-external" />
+      <option name="name" value="autbank-external" />
+      <option name="url" value="http://artifactory.de.autbank.net/artifactory/autbank-external" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="http://artifactory.de.autbank.net/artifactory/repo1" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autbank-releases-legacy" />
+      <option name="name" value="autbank-releases-legacy" />
+      <option name="url" value="http://artifactory.de.autbank.net/artifactory/autbank-releases-legacy" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -15,6 +40,16 @@
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autbank-releases" />
+      <option name="name" value="autbank-releases" />
+      <option name="url" value="http://artifactory.de.autbank.net/artifactory/autbank-releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autbank-repo1-cache" />
+      <option name="name" value="autklinux4-repo1" />
+      <option name="url" value="http://artifactory.de.autbank.net/artifactory/repo1" />
     </remote-repository>
   </component>
 </project>
