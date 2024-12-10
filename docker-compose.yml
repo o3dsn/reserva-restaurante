@@ -1,7 +1,7 @@
 services:
   myapp:
-    image: rr-api-${SPRING_PROFILE:default}
-    container_name: rr-${SPRING_PROFILE}-api
+    image: rr-api-${SPRING_PROFILE:-default}
+    container_name: rr-${SPRING_PROFILE:-default}-api
     build:
       context: .
       dockerfile: Dockerfile

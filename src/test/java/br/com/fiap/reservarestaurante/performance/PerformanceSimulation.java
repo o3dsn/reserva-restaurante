@@ -121,14 +121,14 @@ public class PerformanceSimulation extends Simulation {
   {
     setUp(
             scenarioAdicionarAvaliacao.injectOpen(
-                    rampUsersPerSec(1).to(5).during(Duration.ofSeconds(10)),
-                    constantUsersPerSec(5).during(Duration.ofSeconds(20)),
-                    rampUsersPerSec(5).to(1).during(Duration.ofSeconds(10))
+                    rampUsersPerSec(1).to(5).during(Duration.ofSeconds(5)),
+                    constantUsersPerSec(5).during(Duration.ofSeconds(15)),
+                    rampUsersPerSec(5).to(1).during(Duration.ofSeconds(5))
             ),
             scenarioBuscarAvaliacao.injectOpen(
-                    rampUsersPerSec(1).to(5).during(Duration.ofSeconds(10)),
-                    constantUsersPerSec(5).during(Duration.ofSeconds(20)),
-                    rampUsersPerSec(5).to(1).during(Duration.ofSeconds(10))
+                    rampUsersPerSec(1).to(5).during(Duration.ofSeconds(5)),
+                    constantUsersPerSec(5).during(Duration.ofSeconds(15)),
+                    rampUsersPerSec(5).to(1).during(Duration.ofSeconds(5))
             )
     )
         .protocols(httpProtocolBuilder)

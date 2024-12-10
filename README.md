@@ -104,7 +104,7 @@ Deve-se criar um arquivo .env na raiz do projeto contendo as variáveis:
 | `POSTGRES_PORT`                 | Porta em que a aplicação será executada                                       | `3000`          | 
 | `POSTGRES_DB`                   | Banco padrão do postgres                                                      | `test-db`       |
 | `POSTGRES_PASSWORD_PERFORMANCE` | Senha para o banco para teste de performance                                  | `minhasenha123` |
-| `SPRING_PROFILE`                | Perfil para o Makefile selecionar o profile active quando executar o docker   | `minhasenha123` |
+| `SPRING_PROFILE`                | Perfil para o Makefile selecionar o profile active quando executar o docker   | `performance`   |
 
 ## Comandos Makefile
 
