@@ -3,6 +3,7 @@ package br.com.fiap.reservarestaurante.application.repositories;
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Page;
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Pagination;
 import br.com.fiap.reservarestaurante.application.domain.usuario.Usuario;
+import br.com.fiap.reservarestaurante.application.domain.usuario.UsuarioId;
 
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ public interface UsuarioRepository {
 
 //    Pagination<Usuario> buscarTudo(Page page);
 //
-//    Optional<Usuario> buscarPorId(String id);
+      Optional<Usuario> buscarPorId(UsuarioId id);
 //
 //    void deletarRestaurante(Usuario usuario);
 

@@ -40,6 +40,8 @@ import br.com.fiap.reservarestaurante.application.usecases.reserva.update.Defaul
 import br.com.fiap.reservarestaurante.application.usecases.reserva.update.ReservaUpdateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.usuario.create.DefaultUsuarioCreateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.usuario.create.UsuarioCreateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.usuario.retrive.get.DefaultUsuarioGetByIdUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.usuario.retrive.get.UsuarioGetByIdUseCase;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.AvaliacaoJPARepository;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.ReservaJPARepository;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.RestauranteJPARepository;
@@ -167,9 +169,16 @@ public class ApplicationConfig {
 
   @Bean
   public UsuarioCreateUseCase usuarioCreateUseCase(
-      final UsuarioRepository usuarioRepository) {
+          final UsuarioRepository usuarioRepository) {
     return new DefaultUsuarioCreateUseCase(usuarioRepository);
   }
+
+  @Bean
+  public UsuarioGetByIdUseCase usuarioGetByIdUseCase(
+          final UsuarioRepository usuarioRepository) {
+    return new DefaultUsuarioGetByIdUseCase(usuarioRepository);
+  }
+
 
 
 }
