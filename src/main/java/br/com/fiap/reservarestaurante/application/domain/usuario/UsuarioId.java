@@ -1,7 +1,6 @@
 package br.com.fiap.reservarestaurante.application.domain.usuario;
 
-import br.com.fiap.reservarestaurante.application.exceptions.AvaliacaoException;
-import org.springframework.http.HttpStatus;
+import br.com.fiap.reservarestaurante.application.exceptions.UsuarioException;
 
 import java.util.UUID;
 
@@ -11,7 +10,7 @@ public record UsuarioId(String value) {
         try {
             return new UsuarioId(java.util.UUID.fromString(value).toString());
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Usuario com ID %s não é valido.".formatted(value));
+            throw new UsuarioException("Usuario com ID %s não é valido.".formatted(value), org.springframework.http.HttpStatus.BAD_REQUEST);
         }
     }
 
