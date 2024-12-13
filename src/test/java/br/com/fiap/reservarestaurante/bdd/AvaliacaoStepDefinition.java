@@ -33,10 +33,11 @@ import org.springframework.http.MediaType;
 public class AvaliacaoStepDefinition extends StepDefsDefault {
 
   @Autowired private RestauranteRepository restauranteRepository;
-  private Restaurante restaurante;
   @Autowired private UsuarioJPARepository usuarioRepository;
-  private UsuarioJPAEntity usuario;
   @Autowired private ReservaRepository reservaRepository;
+
+  private Restaurante restaurante;
+  private UsuarioJPAEntity usuario;
   private Reserva reserva;
 
   private Response response;
