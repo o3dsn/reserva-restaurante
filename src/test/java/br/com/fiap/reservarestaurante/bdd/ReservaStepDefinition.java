@@ -5,7 +5,6 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 import br.com.fiap.reserva.model.ReservaDTO;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.UsuarioJPAEntity;
-import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.UsuarioJPARepository;
 import br.com.fiap.reservarestaurante.utils.ReservaHelper;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
@@ -13,7 +12,6 @@ import io.cucumber.java.pt.Quando;
 import io.restassured.response.Response;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -23,9 +21,7 @@ import org.springframework.http.MediaType;
 @AllArgsConstructor
 @AutoConfigureTestDatabase
 public class ReservaStepDefinition extends StepDefsDefault {
-    @Autowired
-    private UsuarioJPARepository usuarioRepository;
-
+    
     private UsuarioJPAEntity usuario;
     private String restauranteId;
     private Response response;
@@ -37,14 +33,6 @@ public class ReservaStepDefinition extends StepDefsDefault {
     @Dado("que exista um restaurante com ID {string}")
     public void que_exista_um_restaurante_com_id(String restauranteId) {
         this.restauranteId = restauranteId;
-    }
-
-    @Dado("que exista um usuario cadastrado")
-    public void que_um_usuario_cadastrado() {
-        if (this.usuario == null) {
-            this.usuario = new UsuarioJPAEntity();
-            this.usuario = usuarioRepository.save(usuario);
-        }
     }
 
     @Quando("registrar uma nova reserva")

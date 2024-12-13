@@ -1,42 +1,40 @@
-# language: pt
+Feature: Avaliação de restaurante
 
-Funcionalidade: API - Avaliacao
+  Scenario: Registrar uma nova avaliação com sucesso
+  Dado que exista um restaurante com nome "Restaurante 1" e descricao "Descrição do Restaurante 1" cadastrado
+  E que exista um usuario cadastrado
+  E uma reserva feita pelo usuario para o restaurante com status finalizada
+  Quando registrar uma nova avaliacao
+  Então a avaliacao e registrada com sucesso
 
-  Cenario: Registrar avaliacao
-    Dado que exista um restaurante com nome "Restaurante 1" e descricao "Restaurante cucumber" cadastrado
-    E que exista um usuario cadastrado
-    E uma reserva feito polo usuario para o restaurante com status finalizada
-    Quando registrar uma nova avaliacao
-    Entao a avaliacao e registrada com sucesso
-    E a avaliacao e exibida com sucesso
+  Scenario: Exibir uma avaliação registrada com sucesso
+  Dado que uma avaliacao ja foi registrada
+  Quando efetuar a busca da avaliacao
+  Então a avaliacao e exibida com sucesso
 
-  Cenario: Buscar avaliacao
-    Dado que uma avaliacao ja foi registrada
-    Quando efetuar a busca da avaliacao
-    Entao a avaliacao e exibida com sucesso
+  Scenario: Exibir todas as avaliações registradas com sucesso
+  Dado que exista duas avaliacoes registradas
+  Quando efetuar a busca por todas avaliacoes
+  Então as avaliacoes sao exibidas com sucesso
 
-  Cenario: Buscar todas avaliacoes
-    Dado que exista duas avaliacoes registradas
-    Quando efetuar a busca por todas avaliacoes
-    Entao as avaliacoes sao exibidas com sucesso
+  Scenario: Exibir as avaliações de um restaurante com sucesso
+  Dado que exista um restaurante com nome "Restaurante 1" e descricao "Descrição do Restaurante 1" cadastrado
+  E que exista duas avaliacoes registradas
+  Quando efetuar a busca pelas avaliacoes
+  Então as avaliacoes sao exibidas com sucesso
 
-  Cenario: Buscar avaliacoes por id do restaurante
-    Dado que exista duas avaliacoes registradas
-    Quando efetuar a busca pelas avaliacoes
-    Entao as avaliacoes sao exibidas com sucesso
+  Scenario: Exibir a nota de um restaurante com sucesso
+  Dado que exista um restaurante com nome "Restaurante 1" e descricao "Descrição do Restaurante 1" cadastrado
+  E que exista uma avaliacao registrada
+  Quando efetuar a busca por sua nota
+  Então a nota deve ser exibida com sucesso
 
-  Cenario: Buscar nota do restaurante por seu id
-    Dado que exista duas avaliacoes registradas
-    Quando efetuar a busca por sua nota
-    Entao a nota deve ser exibida com sucesso
+  Scenario: Atualizar uma avaliação com sucesso
+  Dado que uma avaliacao ja foi registrada
+  Quando efetuar requisicao para alterar avaliacao
+  Então a avaliacao e atualizada com sucesso
 
-  Cenario: Alterar avaliacao
-    Dado que uma avaliacao ja foi registrada
-    Quando efetuar requisicao para alterar avaliacao
-    Entao a avaliacao e atualizada com sucesso
-    E a avaliacao e exibida com sucesso
-
-  Cenario: Remover avaliacao
-    Dado que uma avaliacao ja foi registrada
-    Quando efetuar requisicao para remover avaliacao
-    Entao a avaliacao e removida com sucesso
+  Scenario: Remover uma avaliação com sucesso
+  Dado que uma avaliacao ja foi registrada
+  Quando efetuar requisicao para remover avaliacao
+  Então a avaliacao e removida com sucesso

@@ -33,10 +33,11 @@ import org.springframework.http.MediaType;
 public class AvaliacaoStepDefinition extends StepDefsDefault {
 
   @Autowired private RestauranteRepository restauranteRepository;
-  private Restaurante restaurante;
   @Autowired private UsuarioJPARepository usuarioRepository;
-  private UsuarioJPAEntity usuario;
   @Autowired private ReservaRepository reservaRepository;
+
+  private Restaurante restaurante;
+  private UsuarioJPAEntity usuario;
   private Reserva reserva;
 
   private Response response;
@@ -141,20 +142,25 @@ public class AvaliacaoStepDefinition extends StepDefsDefault {
   @Quando("efetuar a busca pelas avaliacoes")
   public void efetuar_a_busca_pelas_avaliacoes() {
     response =
-            given()
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .when()
-                    .get("http://localhost:%d/avaliacoes/restaurantes/%s".formatted(port, restaurante.getId()));
+        given()
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .when()
+            .get(
+                "http://localhost:%d/avaliacoes/restaurantes/%s"
+                    .formatted(port, restaurante.getId()));
   }
 
   @Quando("efetuar a busca por sua nota")
   public void efetuar_a_busca_por_sua_nota() {
     response =
-            given()
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .when()
-                    .get("http://localhost:%d/avaliacoes/restaurantes/nota/%s".formatted(port, restaurante.getId()));
+        given()
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .when()
+            .get(
+                "http://localhost:%d/avaliacoes/restaurantes/nota/%s"
+                    .formatted(port, restaurante.getId()));
   }
+
   @Entao("a nota deve ser exibida com sucesso")
   public void a_nota_deve_ser_exibida_com_sucesso() {
     response.then().body(matchesJsonSchemaInClasspath("schemas/notaRestaurante.schema.json"));
@@ -164,12 +170,13 @@ public class AvaliacaoStepDefinition extends StepDefsDefault {
   public void efetuar_requisicao_para_alterar_avaliacao() {
     AtualizaAvaliacaoDTO atualizaAvaliacaoDTO = AvaliacaoHelper.gerarAtualizaAvaliacaoDTO();
     response =
-            given()
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .body(atualizaAvaliacaoDTO)
-                    .when()
-                    .patch("http://localhost:%d/avaliacoes/%s".formatted(port, avaliacaoDTO.getId()));
+        given()
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(atualizaAvaliacaoDTO)
+            .when()
+            .patch("http://localhost:%d/avaliacoes/%s".formatted(port, avaliacaoDTO.getId()));
   }
+
   @Entao("a avaliacao e atualizada com sucesso")
   public void a_avaliacao_e_atualizada_com_sucesso() {
     response.then().statusCode(HttpStatus.OK.value());
@@ -178,11 +185,12 @@ public class AvaliacaoStepDefinition extends StepDefsDefault {
   @Quando("efetuar requisicao para remover avaliacao")
   public void efetuar_requisicao_para_remover_avaliacao() {
     response =
-            given()
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .when()
-                    .delete("http://localhost:%d/avaliacoes/%s".formatted(port, avaliacaoDTO.getId()));
+        given()
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .when()
+            .delete("http://localhost:%d/avaliacoes/%s".formatted(port, avaliacaoDTO.getId()));
   }
+
   @Entao("a avaliacao e removida com sucesso")
   public void a_avaliacao_e_removida_com_sucesso() {
     response.then().statusCode(HttpStatus.NO_CONTENT.value());
