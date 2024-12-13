@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import br.com.fiap.reservarestaurante.application.domain.avaliacao.Avaliacao;
-import br.com.fiap.reservarestaurante.application.domain.avaliacao.NotaRestaurante;
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Page;
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Pagination;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.AvaliacaoJPAEntity;

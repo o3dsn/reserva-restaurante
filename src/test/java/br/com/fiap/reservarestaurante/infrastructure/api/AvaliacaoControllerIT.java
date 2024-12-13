@@ -2,6 +2,7 @@ package br.com.fiap.reservarestaurante.infrastructure.api;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import br.com.fiap.reserva.model.AtualizaReservaDTO;
 import br.com.fiap.reservarestaurante.utils.AvaliacaoHelper;
@@ -9,6 +10,8 @@ import io.restassured.RestAssured;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -21,7 +24,7 @@ import org.springframework.http.MediaType;
 @RequiredArgsConstructor
 class AvaliacaoControllerIT {
 
-  @LocalServerPort private int port;
+  @LocalServerPort protected int port;
 
   @BeforeEach
   void setup() {
@@ -62,72 +65,34 @@ class AvaliacaoControllerIT {
           .body(matchesJsonSchemaInClasspath("schemas/avaliacao.schema.json"));
     }
 
-    @Test
-    void deveGerarExcecao_QuandoCriarAvaliacao_QuandoReservaNaoFinalizada() {
-      var reservaId = "81d46912-62bf-4c38-b638-3f569478e369";
+    @ParameterizedTest
+    @CsvSource(
+        value = {
+          "Reserva ainda não finalizada,81d46912-62bf-4c38-b638-3f569478e369,afaa347c-b698-4e51-b71a-d861c5f480ba",
+          "Usuario não pode fazer avaliação para essa reserva,d750f2ba-568b-4d39-98fa-c525736be003,afaa347c-b698-4e51-b71a-d861c5f480bc",
+          "Tempo limite para realizar avaliação alcançado,be147699-ff04-4503-a48e-5d5740739272,afaa347c-b698-4e51-b71a-d861c5f480ba",
+          "Avaliação já registrada para essa reserva,093bff48-6e42-4939-99d9-959f61b41fdd,afaa347c-b698-4e51-b71a-d861c5f480ba"
+        })
+    void deveGerarExcecao_QuandoCriarAvaliacao(String msg, String reservaId, String usuarioId) {
       var body = AvaliacaoHelper.gerarCriaAvaliacaoDTONova();
 
-      given()
-          .contentType(MediaType.APPLICATION_JSON_VALUE)
-          .queryParam("reservaId", reservaId)
-          .queryParam("usuarioId", "afaa347c-b698-4e51-b71a-d861c5f480ba")
-          .body(body)
-          .when()
-          .post("/avaliacoes")
-          .then()
-          .statusCode(HttpStatus.CONFLICT.value())
-          .body(matchesJsonSchemaInClasspath("schemas/dominioException.schema.json"));
-    }
+      var erro =
+          given()
+              .contentType(MediaType.APPLICATION_JSON_VALUE)
+              .queryParam("reservaId", reservaId)
+              .queryParam("usuarioId", usuarioId)
+              .body(body)
+              .when()
+              .post("/avaliacoes")
+              .then()
+              .statusCode(HttpStatus.CONFLICT.value())
+              .body(matchesJsonSchemaInClasspath("schemas/dominioException.schema.json"))
+              .extract()
+              .response()
+              .jsonPath()
+              .get("erros.erro");
 
-    @Test
-    void deveGerarExcecao_QuandoCriarAvaliacao_QuandoUsuarioDiferenteDoUsuarioReserva() {
-      var reservaId = "81d46912-62bf-4c38-b638-3f569478e369";
-      var body = AvaliacaoHelper.gerarCriaAvaliacaoDTONova();
-      // FIXME validar depois de ter o getUsuario e ajustar o createAvaliacaoUseCase
-      given()
-          .contentType(MediaType.APPLICATION_JSON_VALUE)
-          .queryParam("reservaId", reservaId)
-          .queryParam("usuarioId", "afaa347c-b698-4e51-b71a-d861c5f480bc")
-          .body(body)
-          .when()
-          .post("/avaliacoes")
-          .then()
-          .statusCode(HttpStatus.CONFLICT.value())
-          .body(matchesJsonSchemaInClasspath("schemas/dominioException.schema.json"));
-    }
-
-    @Test
-    void deveGerarExcecao_QuandoCriarAvaliacao_QuandoTempoLimiteExcedido() {
-      var reservaId = "828a24a8-4e99-4c68-a476-3c9397bb4e97";
-      var body = AvaliacaoHelper.gerarCriaAvaliacaoDTONova();
-
-      given()
-          .contentType(MediaType.APPLICATION_JSON_VALUE)
-          .queryParam("reservaId", reservaId)
-          .queryParam("usuarioId", "afaa347c-b698-4e51-b71a-d861c5f480ba")
-          .body(body)
-          .when()
-          .post("/avaliacoes")
-          .then()
-          .statusCode(HttpStatus.CONFLICT.value())
-          .body(matchesJsonSchemaInClasspath("schemas/dominioException.schema.json"));
-    }
-
-    @Test
-    void deveGerarExcecao_QuandoCriarAvaliacao_QuandoJaRegistrada() {
-      var reservaId = "093bff48-6e42-4939-99d9-959f61b41fdd";
-      var body = AvaliacaoHelper.gerarCriaAvaliacaoDTONova();
-
-      given()
-          .contentType(MediaType.APPLICATION_JSON_VALUE)
-          .queryParam("reservaId", reservaId)
-          .queryParam("usuarioId", "afaa347c-b698-4e51-b71a-d861c5f480ba")
-          .body(body)
-          .when()
-          .post("/avaliacoes")
-          .then()
-          .statusCode(HttpStatus.CONFLICT.value())
-          .body(matchesJsonSchemaInClasspath("schemas/dominioException.schema.json"));
+      assertEquals(msg, erro);
     }
 
     @Test
@@ -151,13 +116,13 @@ class AvaliacaoControllerIT {
 
       given()
           .contentType(MediaType.APPLICATION_JSON_VALUE)
-          .queryParam("usuarioId", "afaa347c-b698-4e51-b71a-d861c5f480ba")
+          .queryParam("reservaId", "093bff48-6e42-4939-99d9-959f61b41fdd")
           .body(body)
           .when()
           .post("/avaliacoes")
           .then()
           .statusCode(HttpStatus.BAD_REQUEST.value())
-          .body(matchesJsonSchemaInClasspath("schemas/dominioExceptionReservaId.schema.json"));
+          .body(matchesJsonSchemaInClasspath("schemas/dominioExceptionUsuarioId.schema.json"));
     }
 
     @Test

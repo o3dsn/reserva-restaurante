@@ -9,7 +9,6 @@ import br.com.fiap.reservarestaurante.application.domain.avaliacao.AvaliacaoId;
 import br.com.fiap.reservarestaurante.application.domain.avaliacao.NotaRestaurante;
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Page;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.create.AvaliacaoCreateUseCaseInput;
-import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.list.AvaliacaoListUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.list.AvaliacaoListUseCaseInput;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.retrive.list.byidrestaurant.AvaliacaoListByIdRestauranteUseCaseInput;
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.update.AvaliacaoUpdateUseCaseInput;

@@ -2,7 +2,6 @@ package br.com.fiap.reservarestaurante.application.usecases.avaliacao.update;
 
 import br.com.fiap.reservarestaurante.application.domain.avaliacao.Avaliacao;
 import br.com.fiap.reservarestaurante.application.domain.avaliacao.AvaliacaoId;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 
