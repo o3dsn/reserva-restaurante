@@ -1,9 +1,8 @@
 package br.com.fiap.reservarestaurante.application.domain.avaliacao;
 
 import br.com.fiap.reservarestaurante.application.exceptions.AvaliacaoException;
-import org.springframework.http.HttpStatus;
-
 import java.util.UUID;
+import org.springframework.http.HttpStatus;
 
 public record AvaliacaoId(String value) {
 

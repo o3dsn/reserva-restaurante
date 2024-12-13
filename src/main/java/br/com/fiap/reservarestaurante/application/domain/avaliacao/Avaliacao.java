@@ -1,6 +1,5 @@
 package br.com.fiap.reservarestaurante.application.domain.avaliacao;
 
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import lombok.AllArgsConstructor;

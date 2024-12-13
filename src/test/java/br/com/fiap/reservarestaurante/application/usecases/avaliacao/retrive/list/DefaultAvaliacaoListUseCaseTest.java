@@ -53,11 +53,14 @@ class DefaultAvaliacaoListUseCaseTest {
 
     assertThat(output).isNotNull().isInstanceOf(Pagination.class);
 
-    Pagination<AvaliacaoListUseCaseOutput> outputPagination = new Pagination<>(
+    Pagination<AvaliacaoListUseCaseOutput> outputPagination =
+        new Pagination<>(
             input.page().currentPage(),
             input.page().perPage(),
             2L,
-            List.of(AvaliacaoListUseCaseOutput.from(avaliacao1), AvaliacaoListUseCaseOutput.from(avaliacao2)));
+            List.of(
+                AvaliacaoListUseCaseOutput.from(avaliacao1),
+                AvaliacaoListUseCaseOutput.from(avaliacao2)));
     assertThat(output).extracting(Pagination::currentPage).isEqualTo(pagination.currentPage());
     assertThat(output).extracting(Pagination::perPage).isEqualTo(pagination.perPage());
     assertThat(output).extracting(Pagination::total).isEqualTo(pagination.total());
