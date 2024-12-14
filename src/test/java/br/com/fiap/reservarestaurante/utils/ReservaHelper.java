@@ -10,9 +10,12 @@ import br.com.fiap.reservarestaurante.application.usecases.reserva.create.Reserv
 import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.ReservaGetByIdUseCaseOutput;
 import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.ReservaListUseCaseInput;
 import br.com.fiap.reservarestaurante.application.usecases.reserva.update.ReservaUpdateUseCaseInput;
+import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.ReservaJPAEntity;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public final class ReservaHelper {
     public static final String RESTAURANTE_ID = "2cc9c534-9900-44b7-a0d2-551d38d82953";
@@ -103,5 +106,64 @@ public final class ReservaHelper {
 
     public static AtualizaReservaDTO gerarAtualizaReservaDTO() {
         return new AtualizaReservaDTO().status(AtualizaReservaDTO.StatusEnum.CONFIRMADA);
+    }
+
+    public static ReservaJPAEntity gerarReservaJPAEntity() {
+        var reserva = gerarReserva("2cc9c534-9900-44b7-a0d2-551d38d82953");
+        return ReservaJPAEntity.of(reserva);
+    }
+
+    public static ReservaJPAEntity gerarReservaJPAEntityNova() {
+        var reserva = gerarReservaNova();
+        return ReservaJPAEntity.of(reserva);
+    }
+
+    public static Reserva gerarReservaNova() {
+        return Reserva.nova(RESTAURANTE_ID,
+                USUARIO_ID,
+                ReservaDTO.StatusEnum.PENDENTE,
+                "comentario",
+                Instant.parse("2024-12-02T10:15:30.00Z")
+        );
+    }
+
+    public static ReservaJPAEntity gerarReservaJPAEntity(String id) {
+        var reserva = gerarReserva(id);
+        return ReservaJPAEntity.of(reserva);
+    }
+
+    public static void validar(Reserva reservaArmazenado, Reserva reserva) {
+        validar(ReservaJPAEntity.of(reservaArmazenado), ReservaJPAEntity.of(reserva));
+    }
+
+    public static void validar(
+            ReservaJPAEntity reservaArmazenado, ReservaJPAEntity reserva) {
+        assertThat(reservaArmazenado).isNotNull();
+        assertThat(reserva).isNotNull();
+
+        assertThat(reservaArmazenado)
+                .extracting(ReservaJPAEntity::getId)
+                .isEqualTo(reserva.getId());
+        assertThat(reservaArmazenado)
+                .extracting(ReservaJPAEntity::getRestauranteId)
+                .isEqualTo(reserva.getRestauranteId());
+        assertThat(reservaArmazenado)
+                .extracting(ReservaJPAEntity::getUsuarioId)
+                .isEqualTo(reserva.getUsuarioId());
+        assertThat(reservaArmazenado)
+                .extracting(ReservaJPAEntity::getComentario)
+                .isEqualTo(reserva.getComentario());
+        assertThat(reservaArmazenado)
+                .extracting(ReservaJPAEntity::getStatus)
+                .isEqualTo(reserva.getStatus());
+        assertThat(reservaArmazenado)
+                .extracting(ReservaJPAEntity::getDataHorarioReserva)
+                .isEqualTo(reserva.getDataHorarioReserva());
+        assertThat(reservaArmazenado)
+                .extracting(ReservaJPAEntity::getCriacao)
+                .isEqualTo(reserva.getCriacao());
+        assertThat(reservaArmazenado)
+                .extracting(ReservaJPAEntity::getAlteracao)
+                .isEqualTo(reserva.getAlteracao());
     }
 }
