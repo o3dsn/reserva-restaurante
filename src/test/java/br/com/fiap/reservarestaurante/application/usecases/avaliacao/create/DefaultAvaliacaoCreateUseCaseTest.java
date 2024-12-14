@@ -12,10 +12,10 @@ import br.com.fiap.reservarestaurante.application.repositories.AvaliacaoReposito
 import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.ReservaGetByIdUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.ReservaGetByIdUseCaseOutput;
 import br.com.fiap.reservarestaurante.utils.AvaliacaoHelper;
+import br.com.fiap.reservarestaurante.utils.ReservaHelper;
+
 import java.time.Instant;
 import java.util.Optional;
-
-import br.com.fiap.reservarestaurante.utils.ReservaHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,12 +29,10 @@ class DefaultAvaliacaoCreateUseCaseTest {
   private AvaliacaoCreateUseCase avaliacaoCreateUseCase;
   @Mock private AvaliacaoRepository avaliacaoRepository;
   @Mock private ReservaGetByIdUseCase reservaGetByIdUseCase;
-  private Instant agora;
 
   @BeforeEach
   void setUp() {
     openMocks = MockitoAnnotations.openMocks(this);
-    agora = Instant.now();
     avaliacaoCreateUseCase =
         new DefaultAvaliacaoCreateUseCase(avaliacaoRepository, reservaGetByIdUseCase);
   }
@@ -44,6 +42,17 @@ class DefaultAvaliacaoCreateUseCaseTest {
     openMocks.close();
   }
 
+  private ReservaGetByIdUseCaseOutput gerarReservaFinalizadaComUsuarioDiferente() {
+    return new ReservaGetByIdUseCaseOutput(
+            ReservaId.from(AvaliacaoHelper.RESERVA_ID),
+            AvaliacaoHelper.RESTAURANTE_ID,
+            "b03269bb-e8e8-4168-9a39-01f1d7a6076a",
+            ReservaDTO.StatusEnum.FINALIZADA,
+            null,
+            Instant.parse("2024-12-02T10:15:30.00Z"),
+            Instant.parse("2024-12-01T06:10:30.100Z"),
+            Instant.parse("2024-12-01T06:10:30.100Z"));
+  }
 
   @Test
   void devePermitirCriarAvaliacao() {
@@ -110,10 +119,9 @@ class DefaultAvaliacaoCreateUseCaseTest {
 
   @Test
   void deveGerarExcecao_QuandoCriarAvaliacao_ComUsuarioDiferenteDaReserva() {
-    // FIXME implementar depois de ter usuario
-    /*
     var input = AvaliacaoHelper.gerarAvaliacaoCreateUseCaseInput();
-    var reserva = gerarReservaFinalizada();
+    var reserva = gerarReservaFinalizadaComUsuarioDiferente();
+
     when(reservaGetByIdUseCase.execute(any(String.class))).thenReturn(reserva);
 
     assertThatThrownBy(() -> avaliacaoCreateUseCase.execute(input))
@@ -125,7 +133,6 @@ class DefaultAvaliacaoCreateUseCaseTest {
     verify(reservaGetByIdUseCase, times(1)).execute(any(String.class));
     verify(avaliacaoRepository, never()).buscarPorIdReserva(any(String.class));
     verify(avaliacaoRepository, never()).criar(any(Avaliacao.class));
-    */
   }
 
   @Test
@@ -142,7 +149,7 @@ class DefaultAvaliacaoCreateUseCaseTest {
         .isEqualTo(HttpStatus.CONFLICT);
 
     verify(reservaGetByIdUseCase, times(1)).execute(any(String.class));
-    verify(avaliacaoRepository, never()).buscarPorIdReserva(any(String.class));
+    verify(avaliacaoRepository, times(1)).buscarPorIdReserva(any(String.class));
     verify(avaliacaoRepository, never()).criar(any(Avaliacao.class));
   }
 

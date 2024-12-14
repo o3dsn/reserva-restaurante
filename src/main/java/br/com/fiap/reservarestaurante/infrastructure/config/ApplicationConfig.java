@@ -20,6 +20,14 @@ import br.com.fiap.reservarestaurante.application.usecases.avaliacao.update.Aval
 import br.com.fiap.reservarestaurante.application.usecases.avaliacao.update.DefaultAvaliacaoUpdateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.reserva.create.DefaultReservaCreateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.reserva.create.ReservaCreateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.delete.DefaultReservaDeleteUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.delete.ReservaDeleteUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.DefaultReservaGetByIdUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.ReservaGetByIdUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.DefaultReservaListUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.ReservaListUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.update.DefaultReservaUpdateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.reserva.update.ReservaUpdateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.restaurente.create.DefaultRestauranteCreateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.restaurente.create.RestauranteCreateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.restaurente.delete.DefaultRestauranteDeleteUseCase;
@@ -30,16 +38,10 @@ import br.com.fiap.reservarestaurante.application.usecases.restaurente.retrive.l
 import br.com.fiap.reservarestaurante.application.usecases.restaurente.retrive.list.RestauranteListUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.restaurente.update.DefaultRestauranteUpdateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.restaurente.update.RestauranteUpdateUseCase;
-import br.com.fiap.reservarestaurante.application.usecases.reserva.delete.DefaultReservaDeleteUseCase;
-import br.com.fiap.reservarestaurante.application.usecases.reserva.delete.ReservaDeleteUseCase;
-import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.DefaultReservaGetByIdUseCase;
-import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.ReservaGetByIdUseCase;
-import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.DefaultReservaListUseCase;
-import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list.ReservaListUseCase;
-import br.com.fiap.reservarestaurante.application.usecases.reserva.update.DefaultReservaUpdateUseCase;
-import br.com.fiap.reservarestaurante.application.usecases.reserva.update.ReservaUpdateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.usuario.create.DefaultUsuarioCreateUseCase;
 import br.com.fiap.reservarestaurante.application.usecases.usuario.create.UsuarioCreateUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.usuario.retrive.get.DefaultUsuarioGetByIdUseCase;
+import br.com.fiap.reservarestaurante.application.usecases.usuario.retrive.get.UsuarioGetByIdUseCase;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.AvaliacaoJPARepository;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.ReservaJPARepository;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.repositories.RestauranteJPARepository;
@@ -60,7 +62,8 @@ public class ApplicationConfig {
 
   @Bean
   public AvaliacaoCreateUseCase avaliacaoCreateUseCase(
-      final AvaliacaoRepository avaliacaoRepository, final ReservaGetByIdUseCase reservaGetByIdUseCase) {
+      final AvaliacaoRepository avaliacaoRepository,
+      final ReservaGetByIdUseCase reservaGetByIdUseCase) {
     return new DefaultAvaliacaoCreateUseCase(avaliacaoRepository, reservaGetByIdUseCase);
   }
 
@@ -131,8 +134,8 @@ public class ApplicationConfig {
 
   @Bean
   public RestauranteRepository restauranteRepository(
-      final RestauranteJPARepository RestauranteJPARepository) {
-    return new RestauranteRepositoryImpl(RestauranteJPARepository);
+      final RestauranteJPARepository restauranteJPARepository) {
+    return new RestauranteRepositoryImpl(restauranteJPARepository);
   }
 
   @Bean
@@ -154,22 +157,24 @@ public class ApplicationConfig {
   }
 
   @Bean
-  public RestauranteUpdateUseCase RestauranteUpdateUseCase(
+  public RestauranteUpdateUseCase restauranteUpdateUseCase(
       final RestauranteRepository restauranteRepository) {
     return new DefaultRestauranteUpdateUseCase(restauranteRepository);
   }
 
   @Bean
-  public RestauranteDeleteUseCase RestauranteDeleteUseCase(
+  public RestauranteDeleteUseCase restauranteDeleteUseCase(
       final RestauranteRepository restauranteRepository) {
     return new DefaultRestauranteDeleteUseCase(restauranteRepository);
   }
 
   @Bean
-  public UsuarioCreateUseCase usuarioCreateUseCase(
-      final UsuarioRepository usuarioRepository) {
+  public UsuarioCreateUseCase usuarioCreateUseCase(final UsuarioRepository usuarioRepository) {
     return new DefaultUsuarioCreateUseCase(usuarioRepository);
   }
 
-
+  @Bean
+  public UsuarioGetByIdUseCase usuarioGetByIdUseCase(final UsuarioRepository usuarioRepository) {
+    return new DefaultUsuarioGetByIdUseCase(usuarioRepository);
+  }
 }

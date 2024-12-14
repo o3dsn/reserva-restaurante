@@ -149,7 +149,7 @@ class AvaliacaoRepositoryImplIT {
       assertThat(resultadoPaginado).extracting(Pagination::currentPage).isEqualTo(0);
       assertThat(resultadoPaginado).extracting(Pagination::perPage).isEqualTo(10);
       assertThat(resultadoPaginado).extracting(Pagination::total).isEqualTo(0L);
-      assertThat(resultadoPaginado.items()).hasSize(0);
+      assertThat(resultadoPaginado.items()).isEmpty();
     }
 
     @Test

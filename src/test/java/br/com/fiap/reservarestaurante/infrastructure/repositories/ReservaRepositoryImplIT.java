@@ -78,8 +78,8 @@ public class ReservaRepositoryImplIT {
 
             assertThat(reservaPaginada).extracting(Pagination::currentPage).isEqualTo(0);
             assertThat(reservaPaginada).extracting(Pagination::perPage).isEqualTo(10);
-            assertThat(reservaPaginada).extracting(Pagination::total).isEqualTo(5L);
-            assertThat(reservaPaginada.items()).hasSize(5);
+            assertThat(reservaPaginada).extracting(Pagination::total).isEqualTo(6L);
+            assertThat(reservaPaginada.items()).hasSize(6);
         }
 
         @Test

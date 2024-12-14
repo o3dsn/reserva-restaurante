@@ -7,7 +7,6 @@ import static org.mockito.Mockito.*;
 import br.com.fiap.reservarestaurante.application.domain.avaliacao.NotaRestaurante;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.AvaliacaoJPAEntity;
 import br.com.fiap.reservarestaurante.utils.AvaliacaoHelper;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Optional;
 import org.junit.jupiter.api.*;

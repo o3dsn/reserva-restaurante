@@ -2,6 +2,8 @@ package br.com.fiap.reservarestaurante.infrastructure.api;
 
 import br.com.fiap.reservarestaurante.application.exceptions.AvaliacaoException;
 import br.com.fiap.reservarestaurante.application.exceptions.DominioException;
+import br.com.fiap.reservarestaurante.application.exceptions.RestauranteException;
+import br.com.fiap.reservarestaurante.application.exceptions.UsuarioException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,6 +65,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
   @ExceptionHandler(RestauranteException.class)
   public ResponseEntity<DominioException> restauranteException(RestauranteException ex) {
+    this.limparErrors();
+    errors.put("erro", ex.getMessage());
+    return ResponseEntity.status(ex.getStatus()).body(new DominioException(ex.getStatus(), errors));
+  }
+
+  @ExceptionHandler(UsuarioException.class)
+  public ResponseEntity<DominioException> usuarioException(UsuarioException ex) {
     this.limparErrors();
     errors.put("erro", ex.getMessage());
     return ResponseEntity.status(ex.getStatus()).body(new DominioException(ex.getStatus(), errors));

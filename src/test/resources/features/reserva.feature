@@ -1,6 +1,6 @@
 # language: pt
 
-Funcionalidade: API - Reserva
+Funcionalidade: Realizar reserva
 
   Cenario: Registrar reserva
     Dado que exista um restaurante com ID "093bff48-6e42-4939-99d9-959f61b41fdd"

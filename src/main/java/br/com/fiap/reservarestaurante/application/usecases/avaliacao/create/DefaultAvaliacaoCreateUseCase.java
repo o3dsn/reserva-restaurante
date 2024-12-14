@@ -23,16 +23,19 @@ public class DefaultAvaliacaoCreateUseCase extends AvaliacaoCreateUseCase {
       throw new AvaliacaoException("Reserva ainda não finalizada", HttpStatus.CONFLICT);
     }
 
-    // TODO pegar usuario e ver se é o mesmo da reserva: input.usuarioId()
-
-    if (Duration.between(reservaOutput.alteracao(), Instant.now()).toHours() > 24) {
+    if (!reservaOutput.usuarioId().equals(input.usuarioId())) {
       throw new AvaliacaoException(
-          "Tempo limite para realizar avaliação alcançado", HttpStatus.CONFLICT);
+          "Usuario não pode fazer avaliação para essa reserva", HttpStatus.CONFLICT);
     }
 
     if (avaliacaoRepository.buscarPorIdReserva(input.reservaId()).isPresent()) {
       throw new AvaliacaoException(
           "Avaliação já registrada para essa reserva", HttpStatus.CONFLICT);
+    }
+
+    if (Duration.between(reservaOutput.alteracao(), Instant.now()).toHours() > 24) {
+      throw new AvaliacaoException(
+          "Tempo limite para realizar avaliação alcançado", HttpStatus.CONFLICT);
     }
 
     final var novaAvaliacao =

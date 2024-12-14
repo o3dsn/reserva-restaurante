@@ -23,6 +23,7 @@ import org.springframework.http.MediaType;
 @AllArgsConstructor
 @AutoConfigureTestDatabase
 public class ReservaStepDefinition extends StepDefsDefault {
+
     @Autowired
     private UsuarioJPARepository usuarioRepository;
 
