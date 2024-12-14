@@ -39,7 +39,7 @@ public class ReservaStepDefinition extends StepDefsDefault {
         this.restauranteId = restauranteId;
     }
 
-    @Dado("que exista um usuario cadastrado")
+    @Dado("que exista pelo menos um usuario cadastrado")
     public void que_um_usuario_cadastrado() {
         if (this.usuario == null) {
             this.usuario = new UsuarioJPAEntity();
@@ -59,6 +59,8 @@ public class ReservaStepDefinition extends StepDefsDefault {
                         .body(body)
                         .when()
                         .post("http://localhost:%d/reservas".formatted(port));
+
+        this.reservaDTO = response.then().statusCode(HttpStatus.CREATED.value()).extract().as(ReservaDTO.class);
     }
 
     @Entao("a reserva e registrada com sucesso")

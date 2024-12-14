@@ -12,14 +12,14 @@
       <option name="url" value="http://artifactory.de.autbank.net/artifactory/mobilecloudautbank/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="autbank-external" />
-      <option name="name" value="autbank-external" />
-      <option name="url" value="http://artifactory.de.autbank.net/artifactory/autbank-external" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autbank-external" />
+      <option name="name" value="autbank-external" />
+      <option name="url" value="http://artifactory.de.autbank.net/artifactory/autbank-external" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
