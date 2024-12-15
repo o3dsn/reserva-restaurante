@@ -36,10 +36,10 @@ public final class JsonUtil {
   }
 
   public static <T> T toObject(final String json, Class<T> tClass) {
-      try {
-          return getObjectMapper().readValue(json, tClass);
-      } catch (JsonProcessingException e) {
-          throw new RuntimeException(e);
-      }
+    try {
+      return getObjectMapper().readValue(json, tClass);
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

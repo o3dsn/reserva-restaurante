@@ -3,7 +3,6 @@ package br.com.fiap.reservarestaurante.infrastructure.mappers;
 import br.com.fiap.reservarestaurante.application.domain.usuario.Usuario;
 import br.com.fiap.reservarestaurante.application.domain.usuario.UsuarioId;
 import br.com.fiap.reservarestaurante.application.usecases.usuario.create.UsuarioCreateUseCaseInput;
-
 import br.com.fiap.reservarestaurante.application.usecases.usuario.create.UsuarioCreateUseCaseOutput;
 import br.com.fiap.reservarestaurante.application.usecases.usuario.retrive.get.UsuarioGetByIdUseCaseOutPut;
 import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.UsuarioJPAEntity;
@@ -13,23 +12,25 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring",
-imports = {UsuarioId.class})
+@Mapper(
+    componentModel = "spring",
+    imports = {UsuarioId.class})
 public interface UsuarioMapper {
 
-    UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
+  UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
 
-    @Mapping(target = "id", expression = "java(java.util.UUID.fromString(output.id().toString()))")
-    UsuarioDTO toDTO(UsuarioCreateUseCaseOutput output);
+  @Mapping(target = "id", expression = "java(java.util.UUID.fromString(output.id().toString()))")
+  UsuarioDTO toDTO(UsuarioCreateUseCaseOutput output);
 
-    @Mapping(target = "id", expression = "java(java.util.UUID.fromString(output.id().toString()))")
-    UsuarioDTO toDTO(UsuarioGetByIdUseCaseOutPut output);
+  @Mapping(target = "id", expression = "java(java.util.UUID.fromString(output.id().toString()))")
+  UsuarioDTO toDTO(UsuarioGetByIdUseCaseOutPut output);
 
-    //   @Mapping(target = "id", expression = "java(java.util.UUID.fromString(output.id().toString()))")
-    UsuarioDTO toDTO(String id);
+  //   @Mapping(target = "id", expression =
+  // "java(java.util.UUID.fromString(output.id().toString()))")
+  UsuarioDTO toDTO(String id);
 
-    UsuarioCreateUseCaseInput fromDTO(CadastrarUsuarioDTO dto);
+  UsuarioCreateUseCaseInput fromDTO(CadastrarUsuarioDTO dto);
 
-    @Mapping(target = "id", expression = "java(new UsuarioId(entity.getId()))")
-    Usuario toObject(UsuarioJPAEntity entity);
+  @Mapping(target = "id", expression = "java(new UsuarioId(entity.getId()))")
+  Usuario toObject(UsuarioJPAEntity entity);
 }

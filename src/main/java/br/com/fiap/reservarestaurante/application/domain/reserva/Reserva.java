@@ -1,10 +1,9 @@
 package br.com.fiap.reservarestaurante.application.domain.reserva;
 
 import br.com.fiap.reserva.model.ReservaDTO;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.time.Instant;
 
 @Getter
 @AllArgsConstructor
@@ -35,13 +34,13 @@ public class Reserva {
         null);
   }
 
-    public void atualizar(ReservaDTO.StatusEnum status) {
-        this.status = status;
-        this.alteracao = Instant.now();
-    }
+  public void atualizar(ReservaDTO.StatusEnum status) {
+    this.status = status;
+    this.alteracao = Instant.now();
+  }
 
-    public void excluir() {
-        this.status = ReservaDTO.StatusEnum.CANCELADA;
-        this.alteracao = Instant.now();
-    }
+  public void excluir() {
+    this.status = ReservaDTO.StatusEnum.CANCELADA;
+    this.alteracao = Instant.now();
+  }
 }

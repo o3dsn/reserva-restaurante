@@ -20,52 +20,52 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class ReservaController implements ReservasApi {
-    private static final ReservaMapper reservaMapper = ReservaMapper.INSTANCE;
-    private final ReservaCreateUseCase reservaCreateUseCase;
-    private final ReservaDeleteUseCase reservaDeleteUseCase;
-    private final ReservaListUseCase reservaListUseCase;
-    private final ReservaGetByIdUseCase reservaGetByIdUseCase;
-    private final ReservaUpdateUseCase reservaUpdateUseCase;
+  private static final ReservaMapper reservaMapper = ReservaMapper.INSTANCE;
+  private final ReservaCreateUseCase reservaCreateUseCase;
+  private final ReservaDeleteUseCase reservaDeleteUseCase;
+  private final ReservaListUseCase reservaListUseCase;
+  private final ReservaGetByIdUseCase reservaGetByIdUseCase;
+  private final ReservaUpdateUseCase reservaUpdateUseCase;
 
-    @Override
-    public ResponseEntity<ReservaDTO> cadastrarReserva(
-            String restauranteId,
-            String usuarioId,
-            CriaReservaDTO body) {
-        final var useCaseInput = reservaMapper.fromDTO(restauranteId, usuarioId, body);
-        final var useCaseOutput = reservaCreateUseCase.execute(useCaseInput);
-        var uri = URI.create("/reservas/" + useCaseOutput.id());
-        return ResponseEntity.created(uri).body(reservaMapper.toDTO(useCaseOutput));
-    }
+  @Override
+  public ResponseEntity<ReservaDTO> cadastrarReserva(
+      String restauranteId, String usuarioId, CriaReservaDTO body) {
+    final var useCaseInput = reservaMapper.fromDTO(restauranteId, usuarioId, body);
+    final var useCaseOutput = reservaCreateUseCase.execute(useCaseInput);
+    var uri = URI.create("/reservas/" + useCaseOutput.id());
+    return ResponseEntity.created(uri).body(reservaMapper.toDTO(useCaseOutput));
+  }
 
-    @Override
-    public ResponseEntity<PaginadaReservaDTO> buscarReservas(Integer pagina, Integer porPagina) {
-        final var useCaseInput = reservaMapper.fromDTO(new Page(pagina, porPagina));
-        final var reservas = reservaListUseCase.execute(useCaseInput).mapItems(reservaMapper::toDTO);
-        final var paginatedReservas = new PaginadaReservaDTO()
-                .items(reservas.items())
-                .pagina(reservas.currentPage())
-                .porPagina(reservas.perPage())
-                .total(reservas.total());
-        return ResponseEntity.ok(paginatedReservas);
-    }
+  @Override
+  public ResponseEntity<PaginadaReservaDTO> buscarReservas(Integer pagina, Integer porPagina) {
+    final var useCaseInput = reservaMapper.fromDTO(new Page(pagina, porPagina));
+    final var reservas = reservaListUseCase.execute(useCaseInput).mapItems(reservaMapper::toDTO);
+    final var paginatedReservas =
+        new PaginadaReservaDTO()
+            .items(reservas.items())
+            .pagina(reservas.currentPage())
+            .porPagina(reservas.perPage())
+            .total(reservas.total());
+    return ResponseEntity.ok(paginatedReservas);
+  }
 
-    @Override
-    public ResponseEntity<ReservaDTO> buscarReservaPorId(String id) {
-        final var useCaseOutput = reservaMapper.toDTO(reservaGetByIdUseCase.execute(id));
-        return ResponseEntity.ok(useCaseOutput);
-    }
+  @Override
+  public ResponseEntity<ReservaDTO> buscarReservaPorId(String id) {
+    final var useCaseOutput = reservaMapper.toDTO(reservaGetByIdUseCase.execute(id));
+    return ResponseEntity.ok(useCaseOutput);
+  }
 
-    @Override
-    public ResponseEntity<ReservaDTO> atualizarReserva(final String id, final AtualizaReservaDTO body) {
-        final var useCaseInput = reservaMapper.fromDTO(id, body);
-        final var useCaseOutput = reservaMapper.toDTO(reservaUpdateUseCase.execute(useCaseInput));
-        return ResponseEntity.ok(useCaseOutput);
-    }
+  @Override
+  public ResponseEntity<ReservaDTO> atualizarReserva(
+      final String id, final AtualizaReservaDTO body) {
+    final var useCaseInput = reservaMapper.fromDTO(id, body);
+    final var useCaseOutput = reservaMapper.toDTO(reservaUpdateUseCase.execute(useCaseInput));
+    return ResponseEntity.ok(useCaseOutput);
+  }
 
-    @Override
-    public ResponseEntity<Void> deletarReserva(String id) {
-        reservaDeleteUseCase.execute(id);
-        return ResponseEntity.noContent().build();
-    }
+  @Override
+  public ResponseEntity<Void> deletarReserva(String id) {
+    reservaDeleteUseCase.execute(id);
+    return ResponseEntity.noContent().build();
+  }
 }

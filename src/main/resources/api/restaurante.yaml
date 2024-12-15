@@ -17,58 +17,31 @@ tags:
 paths:
   /restaurantes:
     get:
+      tags:
+        - Restaurante
       summary: Lista de restaurantes paginada
       description: Retorna uma lista de restaurantes com paginação.
       operationId: buscarRestaurantes
       parameters:
         - name: pagina
           in: query
-          description: Número da página.
+          description: Número da página
           required: false
           schema:
             type: integer
-            default: 1
-            minimum: 1
+            default: 0
+            example: 1
         - name: porPagina
           in: query
-          description: Quantidade de itens por página.
+          description: Número de itens por página
           required: false
           schema:
             type: integer
             default: 10
-            minimum: 1
-            maximum: 100
-        - name: cidade
-          in: query
-          description: Filtra restaurantes por cidade.
-          required: false
-          schema:
-            type: string
-        - name: estado
-          in: query
-          description: Filtra restaurantes por estado.
-          required: false
-          schema:
-            type: string
-        - name: avaliacaoMinima
-          in: query
-          description: Filtra restaurantes por uma avaliação mínima.
-          required: false
-          schema:
-            type: number
-            format: double
-            minimum: 0.0
-            maximum: 5.0
-            example: 4.0
-        - name: tipoCozinhaId
-          in: query
-          description: Filtra restaurantes por tipo de cozinha.
-          required: false
-          schema:
-            type: string
+            example: 10
       responses:
         '200':
-          description: Lista de restaurantes retornada com sucesso.
+          description: Operação bem-sucedida
           content:
             application/json:
               schema:

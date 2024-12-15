@@ -13,7 +13,6 @@ import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.R
 import br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.get.ReservaGetByIdUseCaseOutput;
 import br.com.fiap.reservarestaurante.utils.AvaliacaoHelper;
 import br.com.fiap.reservarestaurante.utils.ReservaHelper;
-
 import java.time.Instant;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
@@ -44,14 +43,14 @@ class DefaultAvaliacaoCreateUseCaseTest {
 
   private ReservaGetByIdUseCaseOutput gerarReservaFinalizadaComUsuarioDiferente() {
     return new ReservaGetByIdUseCaseOutput(
-            ReservaId.from(AvaliacaoHelper.RESERVA_ID),
-            AvaliacaoHelper.RESTAURANTE_ID,
-            "b03269bb-e8e8-4168-9a39-01f1d7a6076a",
-            ReservaDTO.StatusEnum.FINALIZADA,
-            null,
-            Instant.parse("2024-12-02T10:15:30.00Z"),
-            Instant.parse("2024-12-01T06:10:30.100Z"),
-            Instant.parse("2024-12-01T06:10:30.100Z"));
+        ReservaId.from(AvaliacaoHelper.RESERVA_ID),
+        AvaliacaoHelper.RESTAURANTE_ID,
+        "b03269bb-e8e8-4168-9a39-01f1d7a6076a",
+        ReservaDTO.StatusEnum.FINALIZADA,
+        null,
+        Instant.parse("2024-12-02T10:15:30.00Z"),
+        Instant.parse("2024-12-01T06:10:30.100Z"),
+        Instant.parse("2024-12-01T06:10:30.100Z"));
   }
 
   @Test

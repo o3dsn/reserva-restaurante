@@ -10,20 +10,26 @@ import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
 public class DefaultReservaDeleteUseCase extends ReservaDeleteUseCase {
-    private final ReservaRepository reservaRepository;
+  private final ReservaRepository reservaRepository;
 
-    @Override
-    public void execute(String id) {
-        final var reservaId = new ReservaId(id);
-        final var reserva = reservaRepository.buscarPorId(reservaId)
-                .orElseThrow(() -> new ReservaException("Reserva com ID %s não encontrado.".formatted(reservaId), HttpStatus.NOT_FOUND));
+  @Override
+  public void execute(String id) {
+    final var reservaId = new ReservaId(id);
+    final var reserva =
+        reservaRepository
+            .buscarPorId(reservaId)
+            .orElseThrow(
+                () ->
+                    new ReservaException(
+                        "Reserva com ID %s não encontrado.".formatted(reservaId),
+                        HttpStatus.NOT_FOUND));
 
-        if (reserva.getStatus() == ReservaDTO.StatusEnum.CANCELADA) {
-            throw new AvaliacaoException(
-                    "Reserva com ID %s já cancelada.".formatted(reservaId), HttpStatus.CONFLICT);
-        }
-
-        reserva.excluir();
-        reservaRepository.atualizar(reserva);
+    if (reserva.getStatus() == ReservaDTO.StatusEnum.CANCELADA) {
+      throw new AvaliacaoException(
+          "Reserva com ID %s já cancelada.".formatted(reservaId), HttpStatus.CONFLICT);
     }
+
+    reserva.excluir();
+    reservaRepository.atualizar(reserva);
+  }
 }

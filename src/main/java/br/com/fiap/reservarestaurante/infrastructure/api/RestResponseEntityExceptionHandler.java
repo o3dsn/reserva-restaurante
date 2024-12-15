@@ -2,13 +2,11 @@ package br.com.fiap.reservarestaurante.infrastructure.api;
 
 import br.com.fiap.reservarestaurante.application.exceptions.AvaliacaoException;
 import br.com.fiap.reservarestaurante.application.exceptions.DominioException;
+import br.com.fiap.reservarestaurante.application.exceptions.ReservaException;
 import br.com.fiap.reservarestaurante.application.exceptions.RestauranteException;
 import br.com.fiap.reservarestaurante.application.exceptions.UsuarioException;
 import java.util.HashMap;
 import java.util.Map;
-
-import br.com.fiap.reservarestaurante.application.exceptions.ReservaException;
-import br.com.fiap.reservarestaurante.application.exceptions.RestauranteException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
