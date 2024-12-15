@@ -20,14 +20,4 @@ public class Usuario {
 
     return new Usuario(usuarioid, nome, email, senha);
   }
-
-  //    public void atualizar(String nome, String email, String senha) {
-  //        this.nome = nome;
-  //        this.email = email;
-  //        this.senha = senha;
-  //    }
-  //
-  //    public void excluir() {
-  //        this.id = null;
-  //    }
 }

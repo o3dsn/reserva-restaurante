@@ -18,9 +18,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 
-public class DefaultReservaDeleteUseCaseTest {
+class DefaultReservaDeleteUseCaseTest {
+
   AutoCloseable openMocks;
+
   private ReservaDeleteUseCase reservaDeleteUseCase;
+
   @Mock private ReservaRepository reservaRepository;
 
   @BeforeEach

@@ -17,9 +17,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class DefaultReservaListUseCaseTest {
+class DefaultReservaListUseCaseTest {
+
   AutoCloseable openMocks;
+
   private ReservaListUseCase reservaListUseCase;
+
   @Mock private ReservaRepository reservaRepository;
 
   @BeforeEach

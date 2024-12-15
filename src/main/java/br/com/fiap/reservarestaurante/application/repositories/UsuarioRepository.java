@@ -10,10 +10,5 @@ public interface UsuarioRepository {
 
   Usuario atualizar(Usuario usuario);
 
-  //    Pagination<Usuario> buscarTudo(Page page);
-  //
   Optional<Usuario> buscarPorId(UsuarioId id);
-  //
-  //    void deletarRestaurante(Usuario usuario);
-
 }

@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Reserva {
+
   private ReservaId id;
   private String restauranteId;
   private String usuarioId;

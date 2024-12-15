@@ -41,7 +41,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-public class RestauranteControllerTest {
+class RestauranteControllerTest {
 
   @RegisterExtension
   LogTrackerStub logTracker =
@@ -52,11 +52,11 @@ public class RestauranteControllerTest {
   private MockMvc mockMvc;
   private AutoCloseable openMocks;
 
-  @Mock private RestauranteCreateUseCase restauranteCreateUseCase;
-  @Mock private RestauranteListUseCase restauranteListUseCase;
   @Mock private RestauranteGetByIdUseCase restauranteGetByIdUseCase;
+  @Mock private RestauranteCreateUseCase restauranteCreateUseCase;
   @Mock private RestauranteUpdateUseCase restauranteUpdateUseCase;
   @Mock private RestauranteDeleteUseCase restauranteDeleteUseCase;
+  @Mock private RestauranteListUseCase restauranteListUseCase;
 
   @BeforeEach
   void setup() {

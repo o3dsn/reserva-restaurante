@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class DefaultReservaCreateUseCaseTest {
+class DefaultReservaCreateUseCaseTest {
   AutoCloseable openMocks;
   private ReservaCreateUseCase reservaCreateUseCase;
   @Mock private ReservaRepository reservaRepository;
@@ -37,9 +37,11 @@ public class DefaultReservaCreateUseCaseTest {
 
     var output = reservaCreateUseCase.execute(input);
 
-    assertThat(output).isInstanceOf(ReservaCreateUseCaseOutput.class).isNotNull();
-    assertThat(output).isNotNull();
-    assertThat(output.id()).isEqualTo(reserva.getId());
+    assertThat(output)
+        .isInstanceOf(ReservaCreateUseCaseOutput.class)
+        .isNotNull()
+        .extracting(ReservaCreateUseCaseOutput::id)
+        .isEqualTo(reserva.getId());
     assertThat(output.restauranteId()).isEqualTo(reserva.getRestauranteId());
     assertThat(output.usuarioId()).isEqualTo(reserva.getUsuarioId());
     assertThat(output.comentario()).isEqualTo(reserva.getComentario());

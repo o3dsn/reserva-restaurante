@@ -2,7 +2,6 @@ package br.com.fiap.reservarestaurante.application.usecases.restaurente.update;
 
 import br.com.fiap.reservarestaurante.application.domain.restaurante.Restaurante;
 import br.com.fiap.reservarestaurante.application.domain.restaurante.RestauranteId;
-import java.time.Instant;
 
 public record RestauranteUpdateUseCaseOutput(
     RestauranteId id,

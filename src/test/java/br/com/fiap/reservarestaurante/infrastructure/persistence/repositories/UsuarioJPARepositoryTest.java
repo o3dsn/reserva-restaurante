@@ -47,7 +47,6 @@ class UsuarioJPARepositoryTest {
           .isInstanceOf(UsuarioJPAEntity.class)
           .isNotNull()
           .isEqualTo(usuario);
-      assertThat(usuarioArmazenado).isNotNull();
       assertThat(usuario).isNotNull();
       Assertions.assertEquals(usuarioArmazenado, usuario);
     }
