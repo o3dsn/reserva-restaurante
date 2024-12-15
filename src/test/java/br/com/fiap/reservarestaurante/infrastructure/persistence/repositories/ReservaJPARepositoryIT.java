@@ -1,7 +1,8 @@
 package br.com.fiap.reservarestaurante.infrastructure.persistence.repositories;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.ReservaJPAEntity;
-import br.com.fiap.reservarestaurante.infrastructure.persistence.entities.RestauranteJPAEntity;
 import br.com.fiap.reservarestaurante.utils.ReservaHelper;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Nested;
@@ -11,44 +12,42 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
 public class ReservaJPARepositoryIT {
 
-    private final ReservaJPARepository reservaJPARepository;
+  private final ReservaJPARepository reservaJPARepository;
 
-    @Autowired
-    public ReservaJPARepositoryIT(ReservaJPARepository repository) {
-        this.reservaJPARepository = repository;
+  @Autowired
+  public ReservaJPARepositoryIT(ReservaJPARepository repository) {
+    this.reservaJPARepository = repository;
+  }
+
+  @Nested
+  class Criar {
+
+    @Test
+    void devePermitirCriarReserva() {
+      var reserva = ReservaHelper.gerarReservaJPAEntityNova();
+      var reservaJPA = reservaJPARepository.save(reserva);
+
+      assertThat(reservaJPA).isInstanceOf(ReservaJPAEntity.class).isNotNull().isEqualTo(reserva);
+
+      ReservaHelper.validar(reserva, reservaJPA);
     }
+  }
 
-    @Nested
-    class Criar {
+  @Nested
+  class Buscar {
 
-        @Test
-        void devePermitirCriarReserva() {
-            var reserva = ReservaHelper.gerarReservaJPAEntityNova();
-            var reservaJPA = reservaJPARepository.save(reserva);
+    @Test
+    void devePermitirBuscarTodosRestaurantes() {
+      var reservaPaginado = reservaJPARepository.findAll(Pageable.unpaged());
 
-            assertThat(reservaJPA).isInstanceOf(ReservaJPAEntity.class).isNotNull().isEqualTo(reserva);
+      assertThat(reservaPaginado).hasSizeGreaterThanOrEqualTo(1);
 
-            ReservaHelper.validar(reserva, reservaJPA);
-        }
+      assertThat(reservaPaginado.getContent().get(0)).isInstanceOf(ReservaJPAEntity.class);
     }
-
-    @Nested
-    class Buscar {
-
-        @Test
-        void devePermitirBuscarTodosRestaurantes() {
-            var reservaPaginado = reservaJPARepository.findAll(Pageable.unpaged());
-
-            assertThat(reservaPaginado).hasSizeGreaterThanOrEqualTo(1);
-
-            assertThat(reservaPaginado.getContent().get(0)).isInstanceOf(ReservaJPAEntity.class);
-        }
-    }
+  }
 }

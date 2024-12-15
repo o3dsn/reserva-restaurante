@@ -20,10 +20,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class DefaultRestauranteListUseCaseTest {
+class DefaultRestauranteListUseCaseTest {
 
   AutoCloseable openMocks;
+
   private RestauranteListUseCase restauranteListUseCase;
+
   @Mock private RestauranteRepository restauranteRepository;
 
   @BeforeEach

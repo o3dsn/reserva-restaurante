@@ -1,7 +1,5 @@
 package br.com.fiap.reservarestaurante.application.usecases.restaurente.update;
 
-import java.time.Instant;
-
 public record RestauranteUpdateUseCaseInput(
     String id,
     String nome,
