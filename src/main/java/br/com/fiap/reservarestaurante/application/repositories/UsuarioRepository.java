@@ -6,9 +6,9 @@ import java.util.Optional;
 
 public interface UsuarioRepository {
 
-  Usuario criar(Usuario usuario);
+    Usuario criar(Usuario usuario);
 
-  Usuario atualizar(Usuario usuario);
+    Usuario atualizar(Usuario usuario);
 
-  Optional<Usuario> buscarPorId(UsuarioId id);
+    Optional<Usuario> buscarPorId(UsuarioId id);
 }

@@ -4,23 +4,22 @@ import br.com.fiap.reservarestaurante.application.domain.usuario.UsuarioId;
 import br.com.fiap.reservarestaurante.application.exceptions.UsuarioException;
 import br.com.fiap.reservarestaurante.application.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
 public class DefaultUsuarioGetByIdUseCase extends UsuarioGetByIdUseCase {
 
-  private final UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-  @Override
-  public UsuarioGetByIdUseCaseOutPut execute(String usuarioId) {
-    final var id = new UsuarioId(usuarioId);
+    @Override
+    public UsuarioGetByIdUseCaseOutPut execute(String usuarioId) {
+        final var id = new UsuarioId(usuarioId);
 
-    return usuarioRepository
-        .buscarPorId(id)
-        .map(UsuarioGetByIdUseCaseOutPut::from)
-        .orElseThrow(
-            () ->
-                new UsuarioException(
-                    "Usuario com ID %s não encontrado.".formatted(usuarioId),
-                    org.springframework.http.HttpStatus.BAD_REQUEST));
-  }
+        return usuarioRepository
+                .buscarPorId(id)
+                .map(UsuarioGetByIdUseCaseOutPut::from)
+                .orElseThrow(
+                        () -> new UsuarioException("Usuario com ID %s não encontrado."
+                                .formatted(usuarioId), HttpStatus.NOT_FOUND));
+    }
 }

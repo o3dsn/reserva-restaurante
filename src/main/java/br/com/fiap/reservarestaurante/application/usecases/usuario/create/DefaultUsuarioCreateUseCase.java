@@ -7,14 +7,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DefaultUsuarioCreateUseCase extends UsuarioCreateUseCase {
 
-  private final UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-  @Override
-  public UsuarioCreateUseCaseOutput execute(UsuarioCreateUseCaseInput input) {
-    final var novoUsuario = Usuario.create(input.nome(), input.email(), input.senha());
+    @Override
+    public UsuarioCreateUseCaseOutput execute(UsuarioCreateUseCaseInput input) {
+        final var novoUsuario = Usuario.create( input.id(), input.nome(), input.email(), input.senha());
 
-    var user = usuarioRepository.criar(novoUsuario);
+        var user  = usuarioRepository.criar(novoUsuario);
 
-    return UsuarioCreateUseCaseOutput.from(user);
-  }
+        return UsuarioCreateUseCaseOutput.from(user);
+    }
 }
