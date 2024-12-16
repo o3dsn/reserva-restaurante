@@ -17,17 +17,17 @@ Desenvolvido como trabalho de conclusão do curso de Pós-Graduação em **Arqui
 
 ## 💡 Tecnologias
 
-[https://img.shields.io/badge/Java-17-blue?style=for-the-badge&logo=java](https://img.shields.io/badge/Java-17-blue?style=for-the-badge&logo=java)
+![Java](https://img.shields.io/badge/Java-17-blue?style=for-the-badge&logo=java)
 
-[https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen?style=for-the-badge](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen?style=for-the-badge)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen?style=for-the-badge)
 
-[https://img.shields.io/badge/Maven-3.8.6-C71A36?style=for-the-badge&logo=apachemaven](https://img.shields.io/badge/Maven-3.8.6-C71A36?style=for-the-badge&logo=apachemaven)
+![Maven](https://img.shields.io/badge/Maven-3.8.6-C71A36?style=for-the-badge&logo=apachemaven)
 
-[https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql](https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql)
+![Postgre](https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql)
 
-[https://img.shields.io/badge/Docker-24.0.6-2496ED?style=for-the-badge&logo=docker](https://img.shields.io/badge/Docker-24.0.6-2496ED?style=for-the-badge&logo=docker)
+![Docker](https://img.shields.io/badge/Docker-24.0.6-2496ED?style=for-the-badge&logo=docker)
 
-[https://img.shields.io/badge/Swagger-3.0-85EA2D?style=for-the-badge&logo=swagger](https://img.shields.io/badge/Swagger-3.0-85EA2D?style=for-the-badge&logo=swagger)
+![Swagger](https://img.shields.io/badge/Swagger-3.0-85EA2D?style=for-the-badge&logo=swagger)
 
 ## 📦 Estrutura do Projeto
 
