@@ -17,10 +17,10 @@ VALUES
      'restaurante1@gmail.com', 0, 0, '06:00:00', '22:00:00');
 
 INSERT INTO usuarios (
-    id
+    id, nome, email, senha
 )
 VALUES
-    ('afaa347c-b698-4e51-b71a-d861c5f480ba');
+    ('afaa347c-b698-4e51-b71a-d861c5f480ba','Joao do Bairro', 'jdoe@gmail', '123456');
 
 INSERT INTO reservas (
     id, restaurante_id, usuario_id, status, comentario,

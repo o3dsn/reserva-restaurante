@@ -11,7 +11,7 @@ public class DefaultUsuarioCreateUseCase extends UsuarioCreateUseCase {
 
     @Override
     public UsuarioCreateUseCaseOutput execute(UsuarioCreateUseCaseInput input) {
-        final var novoUsuario = Usuario.create(input.nome(), input.email(), input.senha());
+        final var novoUsuario = Usuario.create( input.id(), input.nome(), input.email(), input.senha());
 
         var user  = usuarioRepository.criar(novoUsuario);
 

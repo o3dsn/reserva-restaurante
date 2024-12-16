@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/restaurante.json",
+  "type": "object",
+  "required": [
+    "id",
+    "nome",
+    "email"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "nome": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    }
+  }
+}
