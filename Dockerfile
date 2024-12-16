@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY target/*.jar app.jar
 
-ARG PROFILE
+ARG SPRING_PROFILE
 
-ENV SPRING_PROFILES_ACTIVE=${PROFILE:-default}
+ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILE:-default}
 
 CMD ["java", "-jar", "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE}", "app.jar"]
