@@ -15,7 +15,7 @@ Desenvolvido como trabalho de conclusão do curso de Pós-Graduação em **Arqui
 - Luiz Henrique Romão de Carvalho
 - Marcelo de Souza
 
-<h1 style="color: blue;">💡 Tecnologias</h1>
+## 💡 Tecnologias
 
 ![Java](https://img.shields.io/badge/Java-17-blue?style=for-the-badge&logo=java)
 
