@@ -24,6 +24,7 @@ public final class AvaliacaoHelper {
   private static final String COMENTARIO =
       "Um comentario com mais de 50 caracteres sobre meu restaurante favorito";
   private static final BigDecimal NOTA = BigDecimal.valueOf(4.5);
+
   private AvaliacaoHelper() {
     throw new UnsupportedOperationException("Esta classe não pode ser instanciada.");
   }
@@ -38,15 +39,15 @@ public final class AvaliacaoHelper {
 
   public static Avaliacao gerar(String id, boolean ativo, String exclusao) {
     return new Avaliacao(
-            AvaliacaoId.from(id),
-            RESERVA_ID,
-            USUARIO_ID,
-            Instant.parse("2024-12-03T10:15:30.00Z"),
-            null,
-            ativo ? null : Instant.parse(exclusao),
-            ativo,
-            COMENTARIO,
-            NOTA);
+        AvaliacaoId.from(id),
+        RESERVA_ID,
+        USUARIO_ID,
+        Instant.parse("2024-12-03T10:15:30.00Z"),
+        null,
+        ativo ? null : Instant.parse(exclusao),
+        ativo,
+        COMENTARIO,
+        NOTA);
   }
 
   public static Avaliacao gerarAvaliacao(String id) {
@@ -56,15 +57,15 @@ public final class AvaliacaoHelper {
   public static Avaliacao gerarAvaliacaoAlterada(String id) {
     var atualizaAvaliacaoDTO = gerarAtualizaAvaliacaoDTO();
     return new Avaliacao(
-            AvaliacaoId.from(id),
-            RESERVA_ID,
-            USUARIO_ID,
-            Instant.parse("2024-12-03T10:15:30.00Z"),
-            Instant.parse("2025-01-01T10:15:30.200Z"),
-            null,
-            true,
-            atualizaAvaliacaoDTO.getComentario(),
-            atualizaAvaliacaoDTO.getNota());
+        AvaliacaoId.from(id),
+        RESERVA_ID,
+        USUARIO_ID,
+        Instant.parse("2024-12-03T10:15:30.00Z"),
+        Instant.parse("2025-01-01T10:15:30.200Z"),
+        null,
+        true,
+        atualizaAvaliacaoDTO.getComentario(),
+        atualizaAvaliacaoDTO.getNota());
   }
 
   public static AvaliacaoJPAEntity gerarAvaliacaoJPAEntityNova() {
@@ -103,7 +104,8 @@ public final class AvaliacaoHelper {
     return new AvaliacaoListUseCaseInput(new Page(0, 10), true);
   }
 
-  public static AvaliacaoListByIdRestauranteUseCaseInput gerarAvaliacaoListByIdRestauranteUseCaseInput() {
+  public static AvaliacaoListByIdRestauranteUseCaseInput
+      gerarAvaliacaoListByIdRestauranteUseCaseInput() {
     return new AvaliacaoListByIdRestauranteUseCaseInput(new Page(0, 10), RESTAURANTE_ID);
   }
 

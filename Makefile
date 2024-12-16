@@ -21,7 +21,7 @@ docker-rmi:
 	@docker rmi -f background:latest || true
 
 docker-build: package docker-rmi
-	docker build --build-arg PROFILE=$(PROFILE) -t background:latest -f ./Dockerfile .
+	docker build --build-arg SPRING_PROFILE=$(SPRING_PROFILE) -t background:latest -f ./Dockerfile .
 
 docker-run: docker-stop
 	@docker rm -f rr-api || true
@@ -30,7 +30,7 @@ docker-run: docker-stop
 docker-stop:
 	@docker stop rr-api || true
 
-docker-start: docker-down docker-rmi
+docker-start: package docker-down docker-rmi
 	@echo Subindo o conainer Docker
 	docker compose up --build -d
 

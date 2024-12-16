@@ -20,10 +20,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 
-public class DefaultRestauranteGetByIdUseCaseTest {
+class DefaultRestauranteGetByIdUseCaseTest {
 
   AutoCloseable openMocks;
+
   private RestauranteGetByIdUseCase restauranteGetByIdUseCase;
+
   @Mock private RestauranteRepository restauranteRepository;
 
   @BeforeEach

@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class DefaultReservaListUseCase extends ReservaListUseCase {
-    private final ReservaRepository reservaRepository;
+  private final ReservaRepository reservaRepository;
 
-    @Override
-    public Pagination<ReservaListUseCaseOutput> execute(final ReservaListUseCaseInput input) {
-        return reservaRepository.buscarTudo(input.page()).mapItems(ReservaListUseCaseOutput::from);
-    }
+  @Override
+  public Pagination<ReservaListUseCaseOutput> execute(final ReservaListUseCaseInput input) {
+    return reservaRepository.buscarTudo(input.page()).mapItems(ReservaListUseCaseOutput::from);
+  }
 }

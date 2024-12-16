@@ -1,12 +1,9 @@
 package br.com.fiap.reservarestaurante.application.domain.usuario;
 
-import br.com.fiap.reservarestaurante.application.domain.avaliacao.AvaliacaoId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
 import java.util.UUID;
-
 
 @Getter
 @AllArgsConstructor

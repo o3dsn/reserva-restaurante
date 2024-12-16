@@ -48,7 +48,7 @@ public final class RestauranteHelper {
   }
 
   public static Restaurante gerarRestaurante(String id) {
-    return gerar(id, true);
+    return gerar(id);
   }
 
   public static RestauranteListUseCaseInput gerarRestauranteListUseCaseInput() {
@@ -140,7 +140,7 @@ public final class RestauranteHelper {
         .horarioFechamento(HORARIO_FECHAMENTO);
   }
 
-  public static Restaurante gerar(String id, boolean ativo) {
+  public static Restaurante gerar(String id) {
     return new Restaurante(
         RestauranteId.from(id),
         NOME,

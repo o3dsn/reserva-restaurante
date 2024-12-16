@@ -51,8 +51,8 @@ public class ReservaJPAEntity {
   public static ReservaJPAEntity of(final Reserva reserva) {
     return new ReservaJPAEntity(
         reserva.getId().value(),
-        reserva.getRestauranteId().toString(),
-        reserva.getUsuarioId().toString(),
+        reserva.getRestauranteId(),
+        reserva.getUsuarioId(),
         reserva.getStatus().toString(),
         reserva.getComentario(),
         reserva.getDataHorarioReserva(),

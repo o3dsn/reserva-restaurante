@@ -33,12 +33,7 @@ public class RestauranteController implements RestaurantesApi {
 
   @Override
   public ResponseEntity<PaginadaRestauranteDTO> buscarRestaurantes(
-      Integer pagina,
-      Integer porPagina,
-      String cidade,
-      String estado,
-      Double avaliacaoMinima,
-      String tipoCozinhaId) {
+      Integer pagina, Integer porPagina) {
     final var input = mapper.fromDTO(new Page(pagina, porPagina));
     final var restaurante = restauranteListUseCase.execute(input).mapItems(mapper::toDTO);
 

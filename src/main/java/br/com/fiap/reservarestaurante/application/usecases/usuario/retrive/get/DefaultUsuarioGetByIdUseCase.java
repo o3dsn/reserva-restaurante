@@ -1,6 +1,5 @@
 package br.com.fiap.reservarestaurante.application.usecases.usuario.retrive.get;
 
-
 import br.com.fiap.reservarestaurante.application.domain.usuario.UsuarioId;
 import br.com.fiap.reservarestaurante.application.exceptions.UsuarioException;
 import br.com.fiap.reservarestaurante.application.repositories.UsuarioRepository;
@@ -24,4 +23,3 @@ public class DefaultUsuarioGetByIdUseCase extends UsuarioGetByIdUseCase {
                                 .formatted(usuarioId), HttpStatus.NOT_FOUND));
     }
 }
-

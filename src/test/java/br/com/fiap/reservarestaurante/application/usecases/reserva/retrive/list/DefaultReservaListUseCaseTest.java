@@ -1,85 +1,89 @@
 package br.com.fiap.reservarestaurante.application.usecases.reserva.retrive.list;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Page;
 import br.com.fiap.reservarestaurante.application.domain.paginacao.Pagination;
 import br.com.fiap.reservarestaurante.application.domain.reserva.Reserva;
 import br.com.fiap.reservarestaurante.application.repositories.ReservaRepository;
 import br.com.fiap.reservarestaurante.utils.ReservaHelper;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.List;
+class DefaultReservaListUseCaseTest {
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
+  AutoCloseable openMocks;
 
-public class DefaultReservaListUseCaseTest {
-    AutoCloseable openMocks;
-    private ReservaListUseCase reservaListUseCase;
-    @Mock
-    private ReservaRepository reservaRepository;
+  private ReservaListUseCase reservaListUseCase;
 
-    @BeforeEach
-    void setUp() {
-        openMocks = MockitoAnnotations.openMocks(this);
-        reservaListUseCase = new DefaultReservaListUseCase(reservaRepository);
-    }
+  @Mock private ReservaRepository reservaRepository;
 
-    @AfterEach
-    void tearDown() throws Exception {
-        openMocks.close();
-    }
+  @BeforeEach
+  void setUp() {
+    openMocks = MockitoAnnotations.openMocks(this);
+    reservaListUseCase = new DefaultReservaListUseCase(reservaRepository);
+  }
 
-    @Test
-    void devePermitirRecuperarTodasReservas() {
-        var input = ReservaHelper.gerarReservaListUseCaseInput();
+  @AfterEach
+  void tearDown() throws Exception {
+    openMocks.close();
+  }
 
-        var reserva1 = ReservaHelper.gerarReserva("3e1d00ed-ece2-4311-a4df-d0af2012f548");
-        var reserva2 = ReservaHelper.gerarReserva("7657063c-eca6-4f33-a9cc-b012db6de0b3");
-        var pagination =
-                new Pagination<>(input.page().currentPage(), input.page().perPage(), 2L, List.of(reserva1, reserva2));
+  @Test
+  void devePermitirRecuperarTodasReservas() {
+    var input = ReservaHelper.gerarReservaListUseCaseInput();
 
-        when(reservaRepository.buscarTudo(any(Page.class))).thenReturn(pagination);
+    var reserva1 = ReservaHelper.gerarReserva("3e1d00ed-ece2-4311-a4df-d0af2012f548");
+    var reserva2 = ReservaHelper.gerarReserva("7657063c-eca6-4f33-a9cc-b012db6de0b3");
+    var pagination =
+        new Pagination<>(
+            input.page().currentPage(), input.page().perPage(), 2L, List.of(reserva1, reserva2));
 
-        var output = reservaListUseCase.execute(input);
+    when(reservaRepository.buscarTudo(any(Page.class))).thenReturn(pagination);
 
-        assertThat(output).isNotNull().isInstanceOf(Pagination.class);
+    var output = reservaListUseCase.execute(input);
 
-        Pagination<ReservaListUseCaseOutput> outputPagination = new Pagination<>(
-                input.page().currentPage(),
-                input.page().perPage(),
-                2L,
-                List.of(ReservaListUseCaseOutput.from(reserva1), ReservaListUseCaseOutput.from(reserva2)));
-        assertThat(output).extracting(Pagination::currentPage).isEqualTo(pagination.currentPage());
-        assertThat(output).extracting(Pagination::perPage).isEqualTo(pagination.perPage());
-        assertThat(output).extracting(Pagination::total).isEqualTo(pagination.total());
-        assertThat(output).extracting(Pagination::items).isEqualTo(outputPagination.items());
+    assertThat(output).isNotNull().isInstanceOf(Pagination.class);
 
-        verify(reservaRepository, times(1)).buscarTudo(input.page());
-    }
+    Pagination<ReservaListUseCaseOutput> outputPagination =
+        new Pagination<>(
+            input.page().currentPage(),
+            input.page().perPage(),
+            2L,
+            List.of(
+                ReservaListUseCaseOutput.from(reserva1), ReservaListUseCaseOutput.from(reserva2)));
+    assertThat(output).extracting(Pagination::currentPage).isEqualTo(pagination.currentPage());
+    assertThat(output).extracting(Pagination::perPage).isEqualTo(pagination.perPage());
+    assertThat(output).extracting(Pagination::total).isEqualTo(pagination.total());
+    assertThat(output).extracting(Pagination::items).isEqualTo(outputPagination.items());
 
-    @Test
-    void devePermitirRecuperarTodasReserva_QuandoNaoTiverNadaAListar() {
-        var input = ReservaHelper.gerarReservaListUseCaseInput();
-        Pagination<Reserva> pagination =
-                new Pagination<>(input.page().currentPage(), input.page().perPage(), 0L, List.of());
+    verify(reservaRepository, times(1)).buscarTudo(input.page());
+  }
 
-        when(reservaRepository.buscarTudo(any(Page.class))).thenReturn(pagination);
+  @Test
+  void devePermitirRecuperarTodasReserva_QuandoNaoTiverNadaAListar() {
+    var input = ReservaHelper.gerarReservaListUseCaseInput();
+    Pagination<Reserva> pagination =
+        new Pagination<>(input.page().currentPage(), input.page().perPage(), 0L, List.of());
 
-        var output = reservaListUseCase.execute(input);
+    when(reservaRepository.buscarTudo(any(Page.class))).thenReturn(pagination);
 
-        assertThat(output).isNotNull().isInstanceOf(Pagination.class);
+    var output = reservaListUseCase.execute(input);
 
-        assertThat(output).extracting(Pagination::currentPage).isEqualTo(pagination.currentPage());
-        assertThat(output).extracting(Pagination::perPage).isEqualTo(pagination.perPage());
-        assertThat(output).extracting(Pagination::total).isEqualTo(pagination.total());
-        assertThat(output).extracting(Pagination::items).isEqualTo(pagination.items());
+    assertThat(output).isNotNull().isInstanceOf(Pagination.class);
 
-        verify(reservaRepository, times(1)).buscarTudo(input.page());
-    }
+    assertThat(output).extracting(Pagination::currentPage).isEqualTo(pagination.currentPage());
+    assertThat(output).extracting(Pagination::perPage).isEqualTo(pagination.perPage());
+    assertThat(output).extracting(Pagination::total).isEqualTo(pagination.total());
+    assertThat(output).extracting(Pagination::items).isEqualTo(pagination.items());
+
+    verify(reservaRepository, times(1)).buscarTudo(input.page());
+  }
 }

@@ -2,7 +2,6 @@ package br.com.fiap.reservarestaurante.application.repositories;
 
 import br.com.fiap.reservarestaurante.application.domain.usuario.Usuario;
 import br.com.fiap.reservarestaurante.application.domain.usuario.UsuarioId;
-
 import java.util.Optional;
 
 public interface UsuarioRepository {
